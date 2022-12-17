@@ -12,8 +12,16 @@
 - KDS with provisioned capacity does not scale as the load increases. 
 - With on-demand scaling, KDS can be used for scaling with increasing data, but if the processing times are in minutes (not seconds), a different approach (such as SQS) could be required.
 - For ongoing data collection and when configurable data retention is required, choose _Kinesis Data Streams_ over _Kinesis Data Firehose_.
+- KDS can replay data to handle downstream failures.
+
+> Kinesis Data Stream allows Data replays (in the same order). SQS _does not_ allow data replays_, and DynamoDB would allow to replay some data, but it’d be different to get some ordering constraints working as well as well as enable real time use cases.
+
+![Kinesis Shards Overview](../images/kinesis-shards-overview.png)
+
+![Kinesis Data Routing](../images/kinesis-data-routing.png)
+
+![Kinesis Enhanced Fanout](../images/kinesis-enhanced-fanout.png)
 
 ### Kinesis Data Firehose
 
 - Using KDF, data can be sinked into S3, Redshift, ElasticSearch or Splunk.
-- 

@@ -1,5 +1,7 @@
 # Visualization
 
+- Kibana runs on port 5601 by default.
+
 ## Types of Charts
 
 ### Heat Maps

@@ -1,5 +1,9 @@
 # Processing
 
+## Glue
+
+- Glue can be used to connect to Athena, Redshift, and Quicksight - as well as being used as a Hive metastore.
+
 ## EMR
 
 ### EMRFS

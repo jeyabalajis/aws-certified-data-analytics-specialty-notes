@@ -53,9 +53,14 @@
 
 ### Resizing
 
-- Classic resize with snapshot / restore / resize minimizes the downtime involved (vis-a-vis Elastic Resize)
-- Elastic resize only holds connections open if you only change the number of nodes, not the node type. 
-- AWS generally recommends using elastic resize however, assuming you can tolerate 10 minutes or so of read-only access.
+- AWS generally recommends using elastic resize, assuming you can tolerate 10 minutes or so of read-only access. Elastic Resize works for both node count and type changes.
+- Classic resize takes more time to complete, but it can be useful in cases where the change in node count or the node type to migrate to doesn't fall within the bounds for elastic resize. This can apply, for instance, when the change in node count is really large.
+
+> As a general rule of thumb, choose elastic resize instead of classic resize (unless the change node count is really large).
+
+> You can also use classic resize to change the cluster encryption. _For example, you can use it to modify your unencrypted cluster to use AWS KMS encryption_.
+
+> To be sure that the cluster is available during a classic resize operation, copy the existing cluster.  Then, resize the new cluster. If data is written to the source cluster after a snapshot is taken, the data must be manually copied over.
 
 #### Elastic resize: 
 - If elastic resize is available as an option, use elastic resize to change the node type, number of nodes, or both. Note that when you only change the number of nodes, the queries are temporarily paused and connections are kept open. An elastic resize takes between 10-15 minutes. During a resize operation, the cluster is read-only.
@@ -77,12 +82,26 @@
 
 > Classic resize: Use classic resize to change the node type, number of nodes, or both.
 
+### Copy of Data
+
+> Amazon Redshift can automatically load in parallel from multiple compressed data files. However, if you use multiple concurrent COPY commands to load one table from multiple files, Amazon Redshift is forced to perform a serialized load. This type of load is much slower and requires a VACUUM process at the end if the table has a sort column defined. 
+
 ## RDMS
 
 - If you are working on an on-premise PostgreSQL database, you can use _DMS (Database Management Service)_ to replicate data to RDS, and offload analytical queries on it.
 
 > If you are working with Amazon Aurora, read replicas help to offload analytical queries execution.
 
+### Row-Level Security
+
+- Row-Level Security for IAM users is now supported in both RDS and DynamoDB. 
+- Web Identity Federation is required to allow end users to use their Federated accounts with IAM. 
+
 ## DynamoDB
 
 - DynamoDB Streams do not have direct integration with Firehose. If you need to move data from DynamoDB to ElasticSearch, you need to involve Lambda functions in the middle. 
+
+### WCU & RCU
+
+- 1 WCU = 1 KB/second. _If you expect about 400 games to be written per second to your database, with each game emitting 80 KB of data, the WCU required is:_ 80 KB * 400 KB/second = 32000 WCU.
+- 1 RCU = 2 eventually consistent reads per second of 4 KB. 1800 eventually consistent reads per second will require 1800 * 80/8 = 18000 RCU.
