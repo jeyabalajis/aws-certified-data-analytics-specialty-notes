@@ -11,3 +11,9 @@
 
 - KDS with provisioned capacity does not scale as the load increases. 
 - With on-demand scaling, KDS can be used for scaling with increasing data, but if the processing times are in minutes (not seconds), a different approach (such as SQS) could be required.
+- For ongoing data collection and when configurable data retention is required, choose _Kinesis Data Streams_ over _Kinesis Data Firehose_.
+
+### Kinesis Data Firehose
+
+- Using KDF, data can be sinked into S3, Redshift, ElasticSearch or Splunk.
+- 
