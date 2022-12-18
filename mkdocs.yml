@@ -17,9 +17,14 @@ nav:
   - Home: index.md
   - Collection:
       - Collection: collection/collection.md
+      - Kinesis Data Firehose: collection/kinesis_data_firehose.md
+      - Kinesis Data Streams: collection/kinesis_data_streams.md
   - Processing:
       - Processing: processing/processing.md
+      - Athena: processing/athena.md 
   - Storage:
       - Storage: storage/storage.md
   - Visualization:
       - Visualization: visualization/visualization.md
+  - Exam Preparation:
+      - Exam Preparation: exam_prep/exam_preparation.md 
