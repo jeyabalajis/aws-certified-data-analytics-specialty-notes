@@ -1,8 +1,11 @@
 # Kinesis Data Firehose
 
+Amazon Kinesis Data Firehose is a fully managed service for _delivering real-time streaming data to destinations_ such as _Amazon Simple Storage Service (Amazon S3), Amazon Redshift, Amazon OpenSearch Service, Amazon OpenSearch Serverless, Splunk, and any custom HTTP endpoint or HTTP endpoints owned by supported third-party service providers, including Datadog, Dynatrace, LogicMonitor, MongoDB, New Relic, and Sumo Logic_.
+
 ## Resilience
 
 - Highly resilient & Serverless.
+- Kinesis Data Firehose runs in a serverless mode, and takes care of host degradations, Availability Zone availability, and other infrastructure related issues by performing automatic migration.
 
 ## Record Format Conversion
 
