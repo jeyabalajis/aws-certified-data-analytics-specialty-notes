@@ -25,3 +25,25 @@
 ### Kinesis Data Firehose
 
 - Using KDF, data can be sinked into S3, Redshift, ElasticSearch or Splunk.
+
+## Cost
+
+- **KDS**: You pay per shard hour and per PUT payload unit. Optionally, there are fees associated with extended data retention and enhanced fan-out, if you choose to use those features. 
+- **KDF**: You pay for the volume of data you ingest using the service and for any data format conversions.
+- **DMS**: You pay for compute resources (depending on instance type) used during the migration process and any additional log storage. There are also potential data transfer fees.
+- **Glue**: With AWS Glue, you pay an hourly rate, billed by the second, for crawlers (discovering data) and ETL jobs (processing and loading data).
+
+## Delivery Guarantees
+
+- Amazon SQS (FIFO) and Amazon DynamoDB streams provide **exactly-once** delivery. All other AWS services provide at-least-once.
+- All services listed (i.e. KDS, DynamoDB Streams, Amazon MSK and SQS FIFO) support guaranteed delivery, except for Kinesis Data Firehose and Amazon SQS (Standard).
+
+## Transform and filter data during collection process 
+
+- Use Lambda to transform data that is in KPL or GZIP into JSON or CSV for Kinesis Data Analytics.
+    - Data Enrichment
+    - String Transformation
+    - Data Filtering 
+- Use KDF Transformation to batch, compress, and encrypt data before loading it.
+- DMS can be used for schema conversions. 
+    - It also supports Apache Parquet format when migrating data to Amazon S3.
