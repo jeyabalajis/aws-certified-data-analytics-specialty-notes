@@ -1,5 +1,62 @@
 # Storage
 
+- Operational Data Store (OLTP Data Store): 
+    - Row store, 
+    - low latency, 
+    - High Throughput, 
+    - Concurrent, 
+    - High Velocity, 
+    - Caching
+- Analytical Data Store: Divided into OLAP and Decision Support System (DSS). 
+    - Columnar store
+    - Large data sets, Partioned
+    - Large Compute Size
+    - Regularly performs complex joins and aggregations
+    - Bulk Loading or Trickle Inserts
+    - Low Change Velocity
+- OLAP: OLAP systems provide a more responsive framework for real-time feedback and ad-hoc queries. 
+- DSS Systems: DSS systems, such as data lakes and data warehouses, are useful for long-running query aggregations and projections, where latency is less important.
+
+
+## OLTP stores
+
+- RDS: Scales vertically. Reliable and durable: Multi-AZ and automated backups, snapshots, and failover.
+- DynamoDB: Scales horizontally. Reliable and durable. Offers *global tables* for multi-region replication.
+- ElastiCache: Extreme performance. ElastiCache for Redis offers multi-az storage with automatic failover.
+- Neptune: Fast and scalable (billions of relationships & queries with milliseconds latency). Six replicas of data across three AZ. 
+
+## Analytic
+
+- S3: Object store, fast & reliable platform to store and query structured and semi-structured data. Athena & Redshift can read from S3. Reliable and Durable (data replicated across 3 AZ, except for single AZ storage class), cross-region replication.
+- Redshift: Columnar storage to improve I/O efficiency and parallelize queries. Data loads linearly. Fastest query results with higher storage cost. Reliable and durable: Continuously backs up your data to S3 (11 9s of durability)   
+
+## DynamoDB
+
+- Use DAX (DynamoDB compatible) for micro-second responses.
+- Partition Key (or) Primary Key: Choose a column with high cardinality. User ID is good. Error code is bad.
+- Secondary indexes: *access pattern*. hese indexes can use alternate sort and/or primary keys to match secondary access patterns. 
+    - The careful design of secondary indexes allows fast and efficient access to data.
+    - Can choose local or global secondary indexes.
+    - LSI: Same partition key, but different sort key. Both eventual and strong. Cannot be deleted, choose when you create table.
+    - GSI: Both partition and sort keys can be different. *Global* 'cos the data can span all partitions. Only eventual consistency.
+
+### Provisioned Capacity Mode
+
+- With provisioned capability mode, you specify the number of reads (RCUs) and writes (WCUs) per second that you expect your application to require. 
+- 1 RCU represents one strongly consistent read or 2 eventually consistent reads per second for an item up to 4 KB in size. 
+- 1 WCU represents one write per second for an item up to 1 KB in size. 
+- You can provision any amount of throughput to a table and use auto scaling to automatically adjust your table’s capacity based on the specified utilization rate to ensure application performance while reducing costs.
+
+### Global Tables
+
+- Uses DynamoDB streams
+
+> To help ensure eventual consistency, DynamoDB global tables use a last-writer-wins reconciliation between concurrent updates, in which DynamoDB makes a best effort to determine the last writer.
+
+## Redis
+
+- You can use Redis Hashes to maintain a list of likes & dislikes for a product code (product recommendation use case)
+
 ## S3
 
 ### S3 Select and Glacier Select
@@ -37,6 +94,14 @@
 - To validate checksum of upload of large files, use thw S3 ETag (sent in the response) against the local MD5 hash.
 
 ## Redshift
+
+### Storage Options
+
+- While Amazon RDS, DynamoDB, and Neptune are all built in SSDs, Amazon Redshift offers you a choice of **SSD** or **HDD** storage. 
+- Amazon Redshift offers three different node types to best accommodate your workloads. You can select *RA3*, *DC2*, or *DS2*, depending on your required performance and data size.
+    - DC2: Compute Intensive with local SSD
+    - DS2: Legacy, uses HDD for lower cost, not recommended
+    - RA3: with managed storage, allows you to optimize your datawarehouse by scaling and paying for compute and storage independently. 
 
 ### Workload Management (WLM)
 
@@ -85,6 +150,18 @@
 ### Copy of Data
 
 > Amazon Redshift can automatically load in parallel from multiple compressed data files. However, if you use multiple concurrent COPY commands to load one table from multiple files, Amazon Redshift is forced to perform a serialized load. This type of load is much slower and requires a VACUUM process at the end if the table has a sort column defined. 
+
+### Compression encodings
+
+- Raw Encoding
+- AZ64 Encoding
+- Byte-Dictionary Encoding
+- Delta Encoding
+- LZO Encoding
+- Mostly Encoding
+- Runlength Encoding
+- Text255 and Text32k Encodings
+- Zstandard Encoding
 
 ## RDMS
 

@@ -19,6 +19,9 @@ nav:
       - Collection: collection/collection.md
       - Kinesis Data Firehose: collection/kinesis_data_firehose.md
       - Kinesis Data Streams: collection/kinesis_data_streams.md
+      - Glue ETL: collection/glue_etl.md
+      - Dynamo DB Streams: collection/dynamodb_streams.md
+      - Database Migration Service: collection/database_migration_service.md
   - Processing:
       - Processing: processing/processing.md
       - Athena: processing/athena.md 
