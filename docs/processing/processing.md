@@ -6,6 +6,10 @@
 
 ## EMR
 
+### Streaming
+
+- You can use Spark Streaming on EMR to transform data into a format that is easily storable in ElastiCache for Redis.
+
 ### EMRFS
 
 - EMRFS provides the convenience of storing persistent data in Amazon S3 for use with Hadoop while also providing features like data encryption.
