@@ -22,23 +22,11 @@
 4. _Eliminate answer options based on key phrases and qualifiers_.
 5. _Flag & move on as required. But remember to answer all the questions).
 
-## Collection
+## Question Components
 
-- Variety: Structured, Semi-Structured, and unstructured
-- Speed: Batch to Streaming
-- Choose a system based on 
-    - Frequency
-    - Volume
-    - Source of Data
-- **Decouple your data pipeline** to _make it easier to manage_, and _reduce cost_ (i.e. do not overprovision)
-- **Failure handling** is especially important in the collection/ingestion phase, as losing large data sets can be difficult to recover.
-- Understanding the Operational Characteristics:
-    - Fault Tolerance and Data Peristence
-        - KPL retries and rate limiting
-        - Implementing efficient and reliable producers
-    - Durability and Availability
-        - KDS replicates data across 3 availability zones. Can retain data for 24 hours (by default)
-        - KCL offers _checkpointing_ to handle KCL worker failures. However, can get throughput exception errors, if there are too many shards or if the application does frequent checkpointing.
+AWS specialty exam questions contain two components: scenario and question.
 
-![Decoupled Media App](../images/decoupled-media-app.png)
+Scenario: This portion frames the situation on which the question is based. It lists services, problems, and requirements that will help you come to a correct response. You will always have all the information you need to identify the correct response. Do not try to add to or remove information from the scenario.
+
+Question: The question always specifies the exact conditions that must be met. If more than one response is required, the question always specifies the number of required responses. If nothing is specified, there is only one correct response.
 

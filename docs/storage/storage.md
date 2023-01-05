@@ -37,8 +37,35 @@
 - Secondary indexes: *access pattern*. hese indexes can use alternate sort and/or primary keys to match secondary access patterns. 
     - The careful design of secondary indexes allows fast and efficient access to data.
     - Can choose local or global secondary indexes.
-    - LSI: Same partition key, but different sort key. Both eventual and strong. Cannot be deleted, choose when you create table.
-    - GSI: Both partition and sort keys can be different. *Global* 'cos the data can span all partitions. Only eventual consistency.
+- LSI: Same partition key, but different sort key. Both eventual and strong. Cannot be deleted, choose when you create table.
+- GSI: Both partition and sort keys can be different. *Global* since the data can span all partitions. Only eventual consistency.
+    
+> In a DynamoDB table, there is no upper limit on the number of distinct sort key values per partition key value. If you needed to store many billions of Dog items in the Pets table, DynamoDB would allocate enough storage to handle this requirement automatically.
+
+### Local Secondary Index (LSI)
+
+- A local secondary index maintains an alternate sort key for a given partition key value.
+- A local secondary index also contains a copy of some or all of the attributes from its base table. 
+- You specify which attributes are projected into the local secondary index when you create the table.
+- LSI occupies additional space (for both indexes and projections)
+- Queries, Scans and Updates consume read and write capacity units of the base table
+
+> LSI is considered “local” because every partition of a local secondary index is bounded by the same partition key value of the base table. It enables querying with different sort order.   
+
+> If access patterns are known clearly upfront, and if strong read consistency is a requirement, then go for LSI.
+
+### Global Secondary Index (GSI)
+
+- To speed up queries on non-key attributes, you can create a global secondary index. 
+- A global secondary index contains a selection of attributes from the base table, but they are organized by a primary key that is different from that of the table. 
+- The index key does not need to have any of the key attributes from the table. It doesn't even need to have the same key schema as a table.
+- Each index has its own provisioned throughput independent of base table
+
+> GSI is deemed _global_ because queries on the index can access the *data across different partitions of the base table*.
+
+> Every global secondary index must have a partition key, and can have an optional sort key. The index key schema can be different from the base table schema.
+
+> GSI is like having another table altogether.
 
 ### Provisioned Capacity Mode
 
@@ -53,13 +80,25 @@
 
 > To help ensure eventual consistency, DynamoDB global tables use a last-writer-wins reconciliation between concurrent updates, in which DynamoDB makes a best effort to determine the last writer.
 
+### Backup
+
+- AWS Backup
+- DynamoDB on-demand backup. You can use the DynamoDB on-demand backup capability to create full backups of your tables for long-term retention, and archiving for regulatory compliance needs.
+
 ## Redis
 
 - You can use Redis Hashes to maintain a list of likes & dislikes for a product code (product recommendation use case)
 
 ## S3
 
-### S3 Select and Glacier Select
+### S3 Object Prefixes
+
+- You can use prefixes to organize the data that you store in Amazon S3 buckets. 
+- A prefix is a string of characters at the beginning of the object key name. 
+- A prefix can be any length, subject to the maximum length of the object key name
+- Searching by prefix limits the results to only those keys that begin with the specified prefix.
+
+> If your application issues requests directly to Amazon S3 using the REST API, we recommend using a pool of HTTP connections and re-using each connection for a series of requests. Avoiding per-request connection setup removes the need to perform TCP slow-start and Secure Sockets Layer (SSL) handshakes on each request. 
 
 #### S3 Select
 
@@ -102,6 +141,32 @@
     - DC2: Compute Intensive with local SSD
     - DS2: Legacy, uses HDD for lower cost, not recommended
     - RA3: with managed storage, allows you to optimize your datawarehouse by scaling and paying for compute and storage independently. 
+
+> By having the data located in both Amazon S3 and Redshift you are increasing the costs without a good reason. You can consider Redshift Spectrum instead.    
+
+### Nodes and Slices
+
+- An Amazon Redshift cluster is a set of nodes. 
+- Each node in the cluster has its own operating system, dedicated memory, and dedicated disk storage. 
+- One node is the leader node, which manages the distribution of data and query processing tasks to the compute nodes. 
+- The compute nodes provide resources to do those tasks.
+- The disk storage for a compute node is divided into a number of slices. 
+- The number of slices per node depends on the node size of the cluster. 
+- For example, each DS2.XL compute node has two slices, and each DS2.8XL compute node has 16 slices. 
+- The nodes all participate in running parallel queries, working on data that is distributed as evenly as possible across the slices.
+- When the table is loaded with data, the rows are distributed to the node slices according to the distribution key that is defined for a table.
+
+> To the extent that you anticipate where best to locate data initially, you can minimize the impact of data redistribution.
+> Distribution styles: EVEN, KEY, ALL, AUTO. ALL distribution is appropriate only for relatively slow moving tables, since data is copied across nodes. 
+
+### Data Distribution styles
+
+- KEY: The rows are distributed according to the values in one column.
+- EVEN: Data is distributed across nodes in a round-robin fashion. If the table does not participate in a join, use this.
+- ALL: Data is copied across all nodes
+- AUTO: Redshift decides.
+
+> Sort Key: Interleaved: Increased Load and Vaccum times. Don't use interleaved in monotonously increasing attributes.
 
 ### Workload Management (WLM)
 
@@ -182,3 +247,20 @@
 
 - 1 WCU = 1 KB/second. _If you expect about 400 games to be written per second to your database, with each game emitting 80 KB of data, the WCU required is:_ 80 KB * 400 KB/second = 32000 WCU.
 - 1 RCU = 2 eventually consistent reads per second of 4 KB. 1800 eventually consistent reads per second will require 1800 * 80/8 = 18000 RCU.
+
+## Glue Data Catalog
+
+- Unified metadata repository across RDBMS, RDS, Redshift and S3
+- Track data evolution using schema versioning
+- Query using Athena or Redshift Spectrum
+- Apache Hive metastore compatible; can be used as an external metastore for applications running on Amazon EMR.
+
+### Catalog steps
+
+1. A crawler runs any custom classifiers that you choose to infer the format and schema of your data.
+2. The crawler connects to the data store.
+3. The inferred schema is created for your data.
+4. The crawler writes metadata to the AWS Glue Data Catalog.
+
+> AWS Glue crawlers can automatically infer schema from source data in Amazon S3 and store the associated metadata in the Data Catalog. 
+
