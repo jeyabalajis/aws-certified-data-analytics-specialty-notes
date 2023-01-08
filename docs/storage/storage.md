@@ -216,6 +216,8 @@
 
 > Amazon Redshift can automatically load in parallel from multiple compressed data files. However, if you use multiple concurrent COPY commands to load one table from multiple files, Amazon Redshift is forced to perform a serialized load. This type of load is much slower and requires a VACUUM process at the end if the table has a sort column defined. 
 
+> Splitting the files into 1-GB files and compressing them will improve performance of the COPY command.
+
 ### Compression encodings
 
 - Raw Encoding

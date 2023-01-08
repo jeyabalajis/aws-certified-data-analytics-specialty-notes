@@ -39,7 +39,7 @@
 ### Encryption
 
 - SSE-KMS
-- LUKS Encryption
+- LUKS (Linux Unified Key Setup) Encryption: Disk encryption specification that can help encrypt sensitive data at rest.
 - KMS Encryption
 
 ### Keep Redshift and RDS in sync
