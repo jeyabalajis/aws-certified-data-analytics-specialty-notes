@@ -25,9 +25,11 @@ nav:
   - Processing:
       - Processing: processing/processing.md
       - Athena: processing/athena.md 
+      - Amazon EMR: processing/amazon_emr.md
   - Storage:
       - Storage: storage/storage.md
   - Visualization:
       - Visualization: visualization/visualization.md
+      - Quicksight: visualization/quick_sight.md
   - Exam Preparation:
       - Exam Preparation: exam_prep/exam_preparation.md 

@@ -20,3 +20,29 @@
     - AWS data sources including Amazon RDS, Amazon Aurora, Amazon Redshift, Amazon Athena and Amazon S3
     - SaaS applications like Salesforce. 
     - You can also export analyzes from a visual to a file with CSV format.
+
+## Reader Sessions
+
+- Amazon QuickSight Reader sessions are of 30-minute duration each. Each session is charged at $0.30 with maximum charges of $5 per Reader in a month.
+- A Reader session starts with a user-initiated action (e.g., login, dashboard load, page refresh, drill-down or filtering) and runs for next 30-minutes. 
+- Keeping Amazon QuickSight open in a background browser window/tab does not result in active sessions until the Reader initiates action on page.
+- Readers will only be logged out of QuickSight when their authentication expires, which is dependent on the authentication scheme in place (can be one of QuickSight-only users, SAML/Open ID Connect or Active Directory).
+- A reader will be charged $0.30 a session up to a maximum of $5/month, after which the reader can access QuickSight at no charge for additional sessions.
+
+## Supported Visualizations
+
+Amazon QuickSight supports assorted visualizations that facilitate different analytical approaches:
+
+|Category|Charts|
+|--------|------|
+|Comparison and distribution|Bar charts (several assorted variants)|
+|Changes over time|Line graphs, Area line charts|
+|Correlation|Scatter plots, Heat maps|
+|Aggregation|Pie graphs, Tree maps|
+|Tabular|Pivot tables|
+|show differences in data values across a geographical map|Geo-spatial charts (maps)|
+|KPIs|Comparison between a key-value and it's target value|
+
+## Kibana
+
+Kibana is built into Amazon ES.
