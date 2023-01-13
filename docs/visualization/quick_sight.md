@@ -21,6 +21,8 @@
     - SaaS applications like Salesforce. 
     - You can also export analyzes from a visual to a file with CSV format.
 
+> Quicksight is integrated with CloudTrail, so all events including non-API events such as deleting dashboards can be stored through CloudTrail into S3.
+
 ## Reader Sessions
 
 - Amazon QuickSight Reader sessions are of 30-minute duration each. Each session is charged at $0.30 with maximum charges of $5 per Reader in a month.
@@ -46,3 +48,7 @@ Amazon QuickSight supports assorted visualizations that facilitate different ana
 ## Kibana
 
 Kibana is built into Amazon ES.
+
+## Active Directory Integration
+
+> Amazon QuickSight Enterprise edition supports both AWS Directory Service for Microsoft Active Directory and Active Directory Connector. Standard Edition does not support AD Connector.

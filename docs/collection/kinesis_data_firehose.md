@@ -16,3 +16,9 @@ Amazon Kinesis Data Firehose is a fully managed service for _delivering real-tim
 ## Streaming ETL
 
 > Kinesis Data Firehose and Kinesis Data Analytics are integrated with AWS Lambda to perform streaming ETL.
+
+> For sub-second analytics, KDF --> S3 --> Athena is useful. But for near-real time analytics, use KDF --> Amazon OpenSearch service (this provides near-real time analytics capability to consumers)
+
+## Kinesis Agent
+
+> You can install the _Kinesis Agent_ on Linux-based server environments such as web servers, log servers, and database servers. After installing the agent, configure it by specifying the files to monitor and the delivery stream for the data. After the agent is configured, it durably collects data from the files and reliably sends it to the delivery stream.

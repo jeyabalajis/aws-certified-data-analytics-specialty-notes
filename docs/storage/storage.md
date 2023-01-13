@@ -159,6 +159,10 @@
 > To the extent that you anticipate where best to locate data initially, you can minimize the impact of data redistribution.
 > Distribution styles: EVEN, KEY, ALL, AUTO. ALL distribution is appropriate only for relatively slow moving tables, since data is copied across nodes. 
 
+> If you intend to load data from a large, compressed file, we recommend that you split your data into smaller files that are about equal size, from 1 MB to 1 GB after compression. For optimum parallelism, the ideal file size is 1–125 MB after compression. Make the number of files a multiple of the number of slices in your cluster.
+
+>  While you are not charged for delete markers, removing expired markers can improve the performance of LIST requests.
+
 ### Data Distribution styles
 
 - KEY: The rows are distributed according to the values in one column.
@@ -230,6 +234,13 @@
 - Text255 and Text32k Encodings
 - Zstandard Encoding
 
+### Use a staging table to perform a merge (upsert)
+
+You can efficiently update and insert new data by loading your data into a staging table first.
+
+> Amazon Redshift doesn't support a single merge statement (update or insert, also known as an upsert) to insert and update data from a single data source. 
+However, you can effectively perform a merge operation. To do so, load your data into a staging table and then join the staging table with your target table for an UPDATE statement and an INSERT statement.
+
 ## RDMS
 
 - If you are working on an on-premise PostgreSQL database, you can use _DMS (Database Management Service)_ to replicate data to RDS, and offload analytical queries on it.
@@ -244,6 +255,7 @@
 ## DynamoDB
 
 - DynamoDB Streams do not have direct integration with Firehose. If you need to move data from DynamoDB to ElasticSearch, you need to involve Lambda functions in the middle. 
+- DynamoDB has direct integration with Redshift. Use the COPY command to load data in parallel directly into an Amazon Redshift cluster. 
 
 ### WCU & RCU
 
@@ -266,3 +278,11 @@
 
 > AWS Glue crawlers can automatically infer schema from source data in Amazon S3 and store the associated metadata in the Data Catalog. 
 
+## Amazon Open Search
+
+- Each Elasticsearch index is split into some number of shards. 
+- You should decide the shard count before indexing your first document. 
+- The overarching goal of choosing a number of shards is to distribute an index evenly across all data nodes in the cluster
+- However, these shards shouldn't be too large or too numerous.
+
+>  Improve the cluster performance by decreasing the number of shards of Amazon Elasticsearch index, if you are facing `JVMMemoryPressure` found in Amazon ES logs. 
