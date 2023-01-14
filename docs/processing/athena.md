@@ -1,5 +1,7 @@
 # Athena
 
+Amazon Athena is an interactive query service that makes it easy to analyze data in Amazon S3 using standard SQL. Athena is serverless, so there is no infrastructure to manage, and you pay only for the queries that you run.
+
 ## Best Practices
 
 - Partition your data
@@ -22,3 +24,8 @@ Amazon Athena allows you to set two types of cost controls:
 ## References
 
 - [Create Tables in Athena from Nested JSON and mappings using JSON Serde](https://aws.amazon.com/blogs/big-data/create-tables-in-amazon-athena-from-nested-json-and-mappings-using-jsonserde/)
+
+## Athena vs. ElasticSearch
+
+- Amazon Elasticsearch Service can be relatively more expensive as you have to run an EC2 instance that charges you per-hour. 
+- Amazon Athena is more suitable for ad-hoc analysis.

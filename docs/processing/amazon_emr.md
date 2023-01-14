@@ -104,3 +104,8 @@ Hudi brings (a) transactions (b) change streams and (c) record-level updates/del
 
 ![Apache Hudi](../images/apache_hudi.png)
 
+## Transient Clusters
+
+- Amazon EMR can be used to quickly and cost-effectively perform data transformation workloads (ETL) such as sort, aggregate, and join on large datasets. 
+- You can use a **transient cluster** to aggregate the sensors' data each night. After it is completed, the transient clusters are _automatically terminated_. 
+- This service will help you save costs since it will only run each night, and you can use Amazon QuickSight to get insights instantly and effortlessly.

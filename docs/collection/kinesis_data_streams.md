@@ -155,6 +155,23 @@
 - Small scale consistent throughput – Even though Kinesis Data Streams works for streaming data at 200 KB/sec or less, **_KDS is designed and optimized for larger data throughputs_**.
 - Long-term data storage and analytics: _Kinesis Data Streams is not suited for long-term data storage_. By default, data is retained for 24 hours, and you can extend the retention period by up to 7 days. You can move any data that needs to be stored for longer than 7 days into another durable storage service such as Amazon S3, Amazon S3 Glacier, Amazon Redshift, or DynamoDB.
 
+## Kinesis vs. MSK
+
+-  MSK provides possibilities of sending large messages (ex: 10MB) into Kafka after custom configuration
+- On the other hand, on a Kinesis shard, only 1 MB/second can be ingested
+
+## MSK
+
+- Authentication & Authorization (important):
+    - Define who can read/write to which topics
+    - Mutual TLS (AuthN) + Kafka ACLs (AuthZ)
+    - SASL/SCRAM (AuthN) + Kafka ACLs (AuthZ)
+    - IAM Access Control (AuthN + AuthZ) - recommended.
+- Use MSK Connect (Managed) to pull data from MSK Cluster and push into S3
+- You can deploy any Kafka Connect connectors to MSK Connect as a plugin
+    - Amazon S3, Amazon Redshift, Amazon OpenSearch, Debezium, etc… 
+
+
 ## References
 
 - [Kinesis vs Kafka](https://www.kadeck.com/blog/an-in-depth-look-at-amazon-kinesis-and-a-comparison-to-apache-kafka)
