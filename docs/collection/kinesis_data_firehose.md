@@ -2,6 +2,24 @@
 
 Amazon Kinesis Data Firehose is a fully managed service for _delivering real-time streaming data to destinations_ such as _Amazon Simple Storage Service (Amazon S3), Amazon Redshift, Amazon OpenSearch Service, Amazon OpenSearch Serverless, Splunk, and any custom HTTP endpoint or HTTP endpoints owned by supported third-party service providers, including Datadog, Dynatrace, LogicMonitor, MongoDB, New Relic, and Sumo Logic_.
 
+- Fully managed, send to S3, Splunk, Redshift, ElasticSearch
+- Serverless data transformations with Lambda
+- Near real time (lowest buffer time is 1 minute)
+- Automated Scaling
+- No data storage
+
+> KDF is more managed than KDS, but only near-real-time. For real-time, use KDS (but need to write custom code)
+
+## Buffering Logic
+
+- Firehose accumulates records in a buffer
+- The buffer is flushed based on time and size rules (_lowest buffer time is 1 minute_)
+- Buffer Size (ex: 32MB): if that buffer size is reached, it’s flushed
+- Buffer Time (ex: 2 minutes): if that time is reached, it’s flushed
+- Firehose can automatically increase the buffer size to increase throughput
+    - High throughput => Buffer Size will be hit
+    - Low throughput => Buffer Time will be hit
+
 ## Resilience
 
 - Highly resilient & Serverless.
@@ -21,4 +39,13 @@ Amazon Kinesis Data Firehose is a fully managed service for _delivering real-tim
 
 ## Kinesis Agent
 
-> You can install the _Kinesis Agent_ on Linux-based server environments such as web servers, log servers, and database servers. After installing the agent, configure it by specifying the files to monitor and the delivery stream for the data. After the agent is configured, it durably collects data from the files and reliably sends it to the delivery stream.
+- You can install the _Kinesis Agent_ on Linux-based server environments such as web servers, log servers, and database servers. - After installing the agent, configure it by specifying the files to monitor and the delivery stream for the data. 
+- After the agent is configured, it durably collects data from the files and reliably sends it to the delivery stream.
+
+## Use Cases
+
+- Cloud Watch Logs --> Subscription Filter --> Kinesis Data Firehose (optional Lambda Transform) --> Amazon ES/S3/Splunk
+
+> For real time, use Lambda instead of Kinesis Data Firehose.
+
+> For real time analytics, use Kinesis data Streams in conjunction with Kinesis Data Analytics.

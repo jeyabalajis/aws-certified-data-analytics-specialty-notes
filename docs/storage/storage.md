@@ -286,3 +286,8 @@ However, you can effectively perform a merge operation. To do so, load your data
 - However, these shards shouldn't be too large or too numerous.
 
 >  Improve the cluster performance by decreasing the number of shards of Amazon Elasticsearch index, if you are facing `JVMMemoryPressure` found in Amazon ES logs. 
+
+## DMS
+
+- Quickly and securely migrate databases to AWS, resilient, self healing
+- You must create an EC2 instance to perform the replication tasks

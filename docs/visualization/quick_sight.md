@@ -52,3 +52,13 @@ Kibana is built into Amazon ES.
 ## Active Directory Integration
 
 > Amazon QuickSight Enterprise edition supports both AWS Directory Service for Microsoft Active Directory and Active Directory Connector. Standard Edition does not support AD Connector.
+
+## Authentication
+
+- Amazon QuickSight Enterprise edition supports both _AWS Directory Service for Microsoft Active Directory_ and _Active Directory Connector_.
+
+
+## Encryption
+
+ > In Amazon QuickSight Enterprise edition, the data at rest in SPICE is encrypted using block-level encryption with AWS-managed keys. You cannot use customer-provided keys that are imported into AWS KMS.
+
