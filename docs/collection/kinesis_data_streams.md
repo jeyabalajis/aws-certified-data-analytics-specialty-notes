@@ -35,7 +35,8 @@
 ### Collection
 
 - Collection refers to batching multiple Kinesis Data Streams records and sending them in a single HTTP request with a call to the API operation PutRecords, instead of sending each Kinesis Data Streams record in its own HTTP request.
-- KPL _aggregates_ multiple records into a single Amazon Kinesis Record, and _collects_ multiple Amazon Kinesis Records into a single _PutRecords_ API call.
+
+> KPL **_aggregates_** multiple records into a single Amazon Kinesis Record, and **_collects_** multiple Amazon Kinesis Records into a single _PutRecords_ API call.
 
 ### Async and Futures
 
