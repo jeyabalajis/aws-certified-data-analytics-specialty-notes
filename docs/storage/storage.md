@@ -245,6 +245,18 @@ You can efficiently update and insert new data by loading your data into a stagi
 > Amazon Redshift doesn't support a single merge statement (update or insert, also known as an upsert) to insert and update data from a single data source. 
 However, you can effectively perform a merge operation. To do so, load your data into a staging table and then join the staging table with your target table for an UPDATE statement and an INSERT statement.
 
+### Redshift Spectrum Overview
+
+- Amazon Redshift Spectrum resides on dedicated Amazon Redshift servers that are independent of your cluster. 
+- Amazon Redshift pushes many compute-intensive tasks, such as predicate filtering and aggregation, down to the Redshift Spectrum layer. 
+- Thus, Redshift Spectrum queries use much less of your cluster's processing capacity than other queries. 
+- Redshift Spectrum also scales intelligently. 
+- Based on the demands of your queries, Redshift Spectrum can potentially use thousands of instances to take advantage of massively parallel processing.
+
+> Redshift Spectrum doesn't support update operations on external tables.
+> Redshift Spectrum doesn't support Amazon EMR with Kerberos.
+
+
 ## RDMS
 
 - If you are working on an on-premise PostgreSQL database, you can use _DMS (Database Management Service)_ to replicate data to RDS, and offload analytical queries on it.
