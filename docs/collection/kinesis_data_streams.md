@@ -35,7 +35,8 @@
 ### Collection
 
 - Collection refers to batching multiple Kinesis Data Streams records and sending them in a single HTTP request with a call to the API operation PutRecords, instead of sending each Kinesis Data Streams record in its own HTTP request.
-- KPL _aggregates_ multiple records into a single Amazon Kinesis Record, and _collects_ multiple Amazon Kinesis Records into a single _PutRecords_ API call.
+
+> KPL **_aggregates_** multiple records into a single Amazon Kinesis Record, and **_collects_** multiple Amazon Kinesis Records into a single _PutRecords_ API call.
 
 ### Async and Futures
 
@@ -121,7 +122,25 @@
 
 - Scalable by shards. With On-demand mode, number of shards is increased dynamically.
 - Data is replicated across three Availability Zones.
-- 
+
+## Randon Shard Allocation vs. Specific Shard Allocation
+
+### Random Partition Keys
+
+- If your use cases do not require data stored in a shard to have high affinity, you can achieve high overall throughput by using a random partition key to distribute data. 
+- Random partition keys help _distribute the incoming data records evenly across all the shards in the stream_ and reduce the likelihood of one or more shards getting hit with a disproportionate number of records. 
+- You can use a universally unique identifier (UUID) as a partition key to achieve this uniform distribution of records across shards. 
+
+> This strategy can increase the latency of record processing if the consumer application has to aggregate data from multiple shards.
+> For example, in a leaderboard update scenario (for a gaming application), it is better of each player's data is in a shard (i.e. keep the shard id as player id.)
+
+### Specific Partition Keys
+
+- Certain use cases require you to partition data based on specific criteria for efficient processing by the consuming applications. 
+- As an example, if you use player ID pk1234 as the hash key, all scores related to that player route to shard1. 
+- The consuming application can use the fact that data stored in shard1 has an affinity with the player ID and can efficiently calculate the leaderboard. 
+- An increase in traffic related to players mapped to shard1 can lead to a hot shard. 
+- Kinesis Data Streams allows you to handle such scenarios by splitting or merging shards without disrupting your streaming pipeline.
 
 ## Troubleshooting
 

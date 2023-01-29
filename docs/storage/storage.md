@@ -34,7 +34,7 @@
 
 - Use DAX (DynamoDB compatible) for micro-second responses.
 - Partition Key (or) Primary Key: Choose a column with high cardinality. User ID is good. Error code is bad.
-- Secondary indexes: *access pattern*. hese indexes can use alternate sort and/or primary keys to match secondary access patterns. 
+- Secondary indexes: *access pattern*. These indexes can use alternate sort and/or primary keys to match secondary access patterns. 
     - The careful design of secondary indexes allows fast and efficient access to data.
     - Can choose local or global secondary indexes.
 - LSI: Same partition key, but different sort key. Both eventual and strong. Cannot be deleted, choose when you create table.
@@ -73,6 +73,10 @@
 - 1 RCU represents one strongly consistent read or 2 eventually consistent reads per second for an item up to 4 KB in size. 
 - 1 WCU represents one write per second for an item up to 1 KB in size. 
 - You can provision any amount of throughput to a table and use auto scaling to automatically adjust your table’s capacity based on the specified utilization rate to ensure application performance while reducing costs.
+
+> Provisioned capacity is probably best for you _if you have relatively predictable application traffic_, run applications whose _traffic is consistent_, and _ramps up or down gradually_.
+
+> On-demand capacity mode is probably best when you have new tables with unknown workloads, unpredictable application traffic and also if you only want to pay exactly for what you use. The on-demand pricing model is ideal _for bursty, new, or unpredictable workloads whose traffic can spike in seconds or minutes, and when under-provisioned capacity would impact the user experience_.
 
 ### Global Tables
 
@@ -130,7 +134,7 @@
 
 ### Large Files
 
-- To validate checksum of upload of large files, use thw S3 ETag (sent in the response) against the local MD5 hash.
+- To validate checksum of upload of large files, use the S3 ETag (sent in the response) against the local MD5 hash.
 
 ## Redshift
 
@@ -240,6 +244,18 @@ You can efficiently update and insert new data by loading your data into a stagi
 
 > Amazon Redshift doesn't support a single merge statement (update or insert, also known as an upsert) to insert and update data from a single data source. 
 However, you can effectively perform a merge operation. To do so, load your data into a staging table and then join the staging table with your target table for an UPDATE statement and an INSERT statement.
+
+### Redshift Spectrum Overview
+
+- Amazon Redshift Spectrum resides on dedicated Amazon Redshift servers that are independent of your cluster. 
+- Amazon Redshift pushes many compute-intensive tasks, such as predicate filtering and aggregation, down to the Redshift Spectrum layer. 
+- Thus, Redshift Spectrum queries use much less of your cluster's processing capacity than other queries. 
+- Redshift Spectrum also scales intelligently. 
+- Based on the demands of your queries, Redshift Spectrum can potentially use thousands of instances to take advantage of massively parallel processing.
+
+> Redshift Spectrum doesn't support update operations on external tables.
+> Redshift Spectrum doesn't support Amazon EMR with Kerberos.
+
 
 ## RDMS
 

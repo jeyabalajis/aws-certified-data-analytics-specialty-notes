@@ -28,3 +28,16 @@
 > If no classifier returns a certainty of higher than 0.0, then AWS Glue returns the default classification string of UNKNOWN. 
 
 > Grok is a tool that is used to parse textual data given a matching pattern. A grok pattern is a named set of regular expressions (regex) that are used to match data one line at a time. AWS Glue uses grok patterns to infer the schema of your data. When a grok pattern matches your data, AWS Glue uses the pattern to determine the structure of your data and map it into fields.
+
+## Handling New Partitions in S3 Bucket (Data Lake)
+
+- When the job finishes, view the new partitions on the console right away, without having to rerun the crawler. 
+- You can enable this feature by adding a few lines of code to your ETL script. 
+- The code uses the `enableUpdateCatalog` argument to indicate that the Data Catalog is to be updated during the job run as the new partitions are created.
+
+### Sample Code (Python):
+
+```
+additionalOptions = {"enableUpdateCatalog": True}
+additionalOptions["partitionKeys"] = ["region", "year", "month", "day"]
+```

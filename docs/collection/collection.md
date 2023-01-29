@@ -14,7 +14,7 @@
 - For ongoing data collection and when configurable data retention is required, choose _Kinesis Data Streams_ over _Kinesis Data Firehose_.
 - KDS can replay data to handle downstream failures.
 
-> Kinesis Data Stream allows Data replays (in the same order). SQS _does not_ allow data replays_, and DynamoDB would allow to replay some data, but it’d be different to get some ordering constraints working as well as well as enable real time use cases.
+> Kinesis Data Stream allows Data replays (in the same order). SQS _does not allow data replays_, and DynamoDB would allow to replay some data, but it’d be _difficult_ to get some ordering constraints working as well as well as enable real time use cases.
 
 ![Kinesis Shards Overview](../images/kinesis-shards-overview.png)
 
@@ -26,6 +26,10 @@
 
 - Using KDF, data can be sinked into S3, Redshift, ElasticSearch or Splunk.
 
+### Data Migration Service (DMS)
+
+- DMS support _Apache Parquet_ format when migrating data to S3.
+
 ## Cost
 
 - **KDS**: You pay per shard hour and per PUT payload unit. Optionally, there are fees associated with extended data retention and enhanced fan-out, if you choose to use those features. 
@@ -36,7 +40,7 @@
 ## Delivery Guarantees
 
 - Amazon SQS (FIFO) and Amazon DynamoDB streams provide **exactly-once** delivery. All other AWS services provide at-least-once.
-- All services listed (i.e. KDS, DynamoDB Streams, Amazon MSK and SQS FIFO) support guaranteed delivery, except for Kinesis Data Firehose and Amazon SQS (Standard).
+- All services listed (i.e. KDS, DynamoDB Streams, Amazon MSK and SQS FIFO) support _exactly once_ delivery, except for Kinesis Data Firehose (KDF) and Amazon SQS (Standard).
 
 ## Transform and filter data during collection process 
 
