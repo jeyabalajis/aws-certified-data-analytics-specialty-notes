@@ -58,6 +58,8 @@ Using Amazon EMR version 5.8.0 or later, you can configure Hive to use the AWS G
 - Apache Spark is an open-source, distributed processing system used for big data workloads. 
 - It utilizes in-memory caching, and optimized query execution for fast analytic queries against data of any size. 
 - It provides development APIs in Java, Scala, Python and R, and supports code reuse across multiple workloads—batch processing, interactive queries, real-time analytics, machine learning, and graph processing.
+- One of the speed advantages of Apache Spark comes from loading data into immutable dataframes, which can be accessed repeatedly in memory. 
+- Spark DataFrames organizes distributed data into columns. This makes summaries and aggregates much quicker to calculate.
 
 #### Stream processing
 
@@ -109,3 +111,8 @@ Hudi brings (a) transactions (b) change streams and (c) record-level updates/del
 - Amazon EMR can be used to quickly and cost-effectively perform data transformation workloads (ETL) such as sort, aggregate, and join on large datasets. 
 - You can use a **transient cluster** to aggregate the sensors' data each night. After it is completed, the transient clusters are _automatically terminated_. 
 - This service will help you save costs since it will only run each night, and you can use Amazon QuickSight to get insights instantly and effortlessly.
+
+## Process Data with Custom JAR
+
+- A custom JAR runs a compiled Java program that you can upload to Amazon S3. 
+- You should compile the program against the version of Hadoop you want to launch, and submit a CUSTOM_JAR step to your Amazon EMR cluster.

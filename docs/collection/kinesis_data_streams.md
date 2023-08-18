@@ -1,5 +1,11 @@
 # Kinesis Data Streams
 
+## Ingress Limitations 
+- Each shard can support writes up to 1,000 records per second, up to a maximum data write total of 1 MB per second. 
+- Each PutRecords request can support up to 500 records. 
+- Each record in the request can be as large as 1 MB, up to a limit of 5 MB for the entire request, including partition keys.
+    - The maximum size of a data blob (the data payload before Base64-encoding) is 1 megabyte (MB).
+
 ## Kinesis Producer Library
 
 - The Amazon Kinesis Producer Library (KPL) performs many tasks common to creating _efficient_ and _reliable_ producers for Amazon Kinesis. By using the KPL, customers do not need to develop the same logic every time they create a new application for data ingestion.
@@ -141,6 +147,11 @@
 - The consuming application can use the fact that data stored in shard1 has an affinity with the player ID and can efficiently calculate the leaderboard. 
 - An increase in traffic related to players mapped to shard1 can lead to a hot shard. 
 - Kinesis Data Streams allows you to handle such scenarios by splitting or merging shards without disrupting your streaming pipeline.
+- User activity dashboard based on clickstream for a user can be handled in the same manner (with Session ID as a partition key).
+    - Partitioning by the session ID will allow a single processor to process all the actions for a user session in order.
+    - An AWS Lambda function can call the UpdateShardCount API action to change the number of shards in the stream. 
+    - The KCL will automatically manage the number of processors to match the number of shards.
+    - Amazon EC2 Auto Scaling will assure the correct number of instances are running to meet the processing load.
 
 ## Troubleshooting
 
