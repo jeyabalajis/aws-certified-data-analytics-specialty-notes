@@ -116,3 +116,10 @@ Hudi brings (a) transactions (b) change streams and (c) record-level updates/del
 
 - A custom JAR runs a compiled Java program that you can upload to Amazon S3. 
 - You should compile the program against the version of Hadoop you want to launch, and submit a CUSTOM_JAR step to your Amazon EMR cluster.
+
+## Encryption
+- You can choose to encrypt data in Amazon S3, local disks, or both.
+- When you create a security configuration, you specify two sets of encryption options: at-rest data encryption and in-transit data encryption. 
+- Options for at-rest data encryption include both Amazon S3 with EMRFS and local-disk encryption. 
+- In-transit encryption options enable the open-source encryption features for certain applications that support Transport Layer Security (TLS). 
+- At-rest options and in-transit options can be enabled together or separately.

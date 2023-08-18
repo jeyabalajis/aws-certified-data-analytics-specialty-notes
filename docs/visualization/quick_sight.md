@@ -62,3 +62,6 @@ Kibana is built into Amazon ES.
 
  > In Amazon QuickSight Enterprise edition, the data at rest in SPICE is encrypted using block-level encryption with AWS-managed keys. You cannot use customer-provided keys that are imported into AWS KMS.
 
+## S3 Integration
+- Datasets created using Amazon S3 as the data source are automatically imported into SPICE. 
+- The Amazon QuickSight console allows for the refresh of SPICE data on a schedule.
