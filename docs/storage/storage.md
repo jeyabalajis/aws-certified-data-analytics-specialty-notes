@@ -146,7 +146,9 @@
     - DS2: Legacy, uses HDD for lower cost, not recommended
     - RA3: with managed storage, allows you to optimize your datawarehouse by scaling and paying for compute and storage independently. 
 
-> By having the data located in both Amazon S3 and Redshift you are increasing the costs without a good reason. You can consider Redshift Spectrum instead.    
+> By having the data located in both Amazon S3 and Redshift you are increasing the costs without a good reason. You can consider Redshift Spectrum instead.  
+> However, if you have a need that data will be modified using SQL for custom processing, store the data in Amazon Redshift
+> database (Data Warehouse), rather than S3 (Data Lake).  
 
 ### Nodes and Slices
 
