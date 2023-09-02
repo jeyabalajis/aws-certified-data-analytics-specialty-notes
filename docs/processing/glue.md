@@ -12,3 +12,18 @@
 - AWS Glue resource policies can be used to control access to Data Catalog resources.
 
 ![Alt text](../images/glue-iam-features.png)
+
+## Glue Crawler
+
+- AWS Glue can crawl data in different AWS Regions. 
+- When you define an Amazon S3 data store to crawl, you can choose whether to crawl _a path in your account_ or _another account_ or _another region_.
+- Use one or more of the following methods to reduce crawler run times.
+    - Use an exclude pattern
+    - Run multiple crawlers
+    - Combine smaller files to create larger ones
+
+![Alt text](glue_crawler.png)
+
+## Glue Data Catalog
+
+![Alt text](glue_data_catalog_with_crawler.png)

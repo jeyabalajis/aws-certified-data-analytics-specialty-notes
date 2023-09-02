@@ -24,7 +24,7 @@
 |Kinesis Video Streams|Fully managed service to stream live video from devices to the AWS Cloud.|
 |Redshift|Fully managed peta-byte size Data Warehouse service.|
 |SageMaker|Fully managed Machine Learning Service|
-
+|Open Search Dashboard|Open-source visualization tool designed to work with OpenSearch.| 
 
 ## Amazon Quicksight
 

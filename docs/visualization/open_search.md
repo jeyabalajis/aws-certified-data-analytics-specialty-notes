@@ -1,8 +1,11 @@
 # Open Search
 
-- Amazon OpenSearch Service makes it easy for you to perform interactive log analytics, real-time application monitoring, a website search, and more. 
+- Amazon OpenSearch Service makes it easy for you to perform interactive log analytics, **real-time application monitoring**, a website search, and more. 
 - OpenSearch is an open-source, distributed search and analytics suite derived from Elasticsearch. 
 - Amazon OpenSearch Service is the successor to Amazon Elasticsearch Service and offers the latest versions of OpenSearch.
+- Amazon Kinesis Firehose can ingest data into Open Search.
+- Amazon OpenSearch Service provides an installation of OpenSearch Dashboards with every OpenSearch Service domain. 
+- OpenSearch Dashboard is a data aggregation and visualization tool that enables you to explore, visualize, analyze, and discover data in real-time with Amazon OpenSearch.
 
 ## Open Search Dashboard
 
@@ -29,5 +32,12 @@
 - This would allow them to create search experiences like searching for loan applications where the applicant's name is Jose Rizal, or searching for contracts where the interest rate is 2 percent.
 
 > Redshift and Athena does not provide visual insights, unlike Kibana.
-> Amazon Elasticsearch does not have a direct integration with Amazon QuickSight.
+> Amazon Elasticsearch (Open Search) does not have a direct integration with Amazon QuickSight.
 
+### Real-Time Transaction Data Analysis
+
+- Kinesis Data Firehose --> Redshift --> Quicksight is a valid option for analytics. Although valid, this visualization solution is not capable of providing near-real-time data. 
+    - While data ingestion from Firehose to Redshift is supported, it will not be in near-real-time due to the way Firehose feeds data to Redshift. 
+    - Behind the scenes, Firehose has to load the streaming data to Amazon S3 first and then issue a COPY command to move the data to Redshift. 
+    - **This method introduces latencies in the order of minutes.**
+- 

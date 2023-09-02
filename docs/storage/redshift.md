@@ -7,6 +7,10 @@
 - When loading multiple files into a single table, use a single COPY command for the table, rather than multiple COPY commands.
 - Amazon Redshift automatically parallelizes the data ingestion. 
 - Using a single COPY command to bulk load data into a table ensures optimal use of cluster resources, and quickest possible throughput.
+- A COPY command is the most efficient way to load a table. 
+- You can also add data to your tables using INSERT commands, though it is much less efficient than using COPY. 
+- The COPY command is able to read from multiple data files or multiple data streams simultaneously. 
+- Amazon Redshift allocates the workload to the cluster nodes and performs the load operations in parallel, including sorting the rows and distributing data across node slices.
 
 > The COPY command leverages the Amazon Redshift massively parallel processing (MPP) architecture to read and load data in parallel from files in an Amazon S3 bucket. 
 **You can take maximum advantage of parallel processing by splitting your data into multiple files and setting distribution keys on your tables**.
@@ -40,5 +44,9 @@ The following methods allow efficient and fast transfer of these bulk datasets i
 - **Use ALTER table APPEND to swap data from the staging tables to the target table**. Data in the source table is moved to matching columns in the target table. Column order doesn’t matter. After data is successfully appended to the target table, the source table is empty. ALTER TABLE APPEND is much faster than a similar CREATE TABLE AS or INSERT INTO operation because it doesn’t involve copying or moving data.
 
 ### Use Redshift Spectrum for ad hoc ETL processing
+
+- When you partition your data, you can restrict the amount of data that Redshift Spectrum scans by filtering on the partition key. 
+- You can partition your data by any key. A common practice is to **partition the data based on time**.
+
 
 ### Monitor daily ETL health using diagnostic queries

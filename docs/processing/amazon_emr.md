@@ -23,6 +23,27 @@ Amazon EMR is highly scalable big data platform that supports open source tools 
 - EMRFS uses an Amazon DynamoDB database to store object metadata and track consistency in Amazon S3
 - EMRFS allows you to define retry rules for processing inconsistencies
 
+## S3DistCP Tool
+
+- Apache DistCp is an open-source tool you can use to copy large amounts of data. 
+- S3DistCp is similar to DistCp, but optimized to work with AWS, particularly Amazon S3. **S3DistCp** is more performant than **DistCp**. 
+- The command for S3DistCp in Amazon EMR version 4.0 and later is s3-dist-cp, which you add as a step in a cluster or at the command line. 
+- Using S3DistCp, you can efficiently copy large amounts of data _from Amazon S3 into HDFS_ where it can be processed by subsequent steps in your Amazon EMR cluster. 
+- You can also use S3DistCp to _copy data between Amazon S3 buckets_ or _from HDFS to Amazon S3_. 
+- S3DistCp is more scalable and efficient for parallel copying large numbers of objects across buckets and across AWS accounts.
+
+> By adding S3DistCp as a step in a job flow, you can efficiently copy large amounts of data from Amazon S3 into HDFS, where subsequent steps in your EMR clusters can process it.
+
+![Alt text](emr_s3_emrfs.png)
+
+### EMRFS Identity & Access Management (IAM)
+- EMRFS uses the permissions attached to the service role for cluster EC2 instances by default.
+- When you have multiple cluster users and multiple data stores, you may want users to have different permissions to EMRFS data in Amazon S3. 
+- To do this, you can you can use IAM roles for EMRFS. 
+- This allows EMRFS to assume different roles with different permissions policies based on the user or group making the request or the location of EMRFS data in Amazon S3.
+
+> Because IAM roles for EMRFS will fall back to the permissions attached to the service role for cluster EC2 instances, as a best practice, we recommend that you use IAM roles for EMRFS, and limit the EMRFS and Amazon S3 permissions attached to the service role for cluster EC2 instances.
+
 > With the release of Amazon S3 strong read-after-write consistency on December 1, 2020, you no longer need to use EMRFS consistent view (EMRFS CV) with your Amazon EMR clusters.
 
 ## Notifications
@@ -35,6 +56,21 @@ Amazon EMR can only be configured as a publisher to an SNS topic—it cannot sub
 - Launch an EMR cluster with three master nodes and support high availability applications like YARN Resource Manager, HDFS Name Node, Spark, Hive, and Ganglia. 
 - _EMR clusters with multiple master nodes are not tolerant of Availability Zone failures. In the case of an Availability Zone outage, you lose access to the EMR cluster._
 - Using the Amazon EMR version 5.7.0 or later, you can set up a read-replica cluster, which allows you to maintain read-only copies of data in Amazon S3. In the event that the primary cluster becomes unavailable, you can access the data from the read-replica cluster to perform read operations simultaneously.
+
+## Auto-scaling
+
+When you create a cluster and specify the configuration of the master node, core nodes, and task nodes, you have two configuration options. You can use:
+
+- Instance fleets
+- **Instance groups (provides autoscaling)**
+
+When automatic scaling is configured, Amazon EMR adds and removes instances based on Amazon CloudWatch metrics that you specify.
+
+The following are two of the most common metrics used for automatic scaling in Amazon EMR:
+
+- **YarnMemoryAvailablePercentage**: The percentage of remaining memory available to YARN.
+- **ContainerPendingRatio**: The ratio of pending containers to containers allocated. You can use this metric to scale a cluster based on container-allocation behavior for varied loads, which is useful for performance tuning.
+- **CapacityRemainingGB** metric is the amount of remaining HDFS disk capacity.
 
 ## Metastore
 
