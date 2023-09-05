@@ -34,6 +34,11 @@ Amazon EMR is highly scalable big data platform that supports open source tools 
 
 > By adding S3DistCp as a step in a job flow, you can efficiently copy large amounts of data from Amazon S3 into HDFS, where subsequent steps in your EMR clusters can process it.
 
+> S3DistCp does not support concatenation for Parquet files. When you attempt to concatenate them, you get an error message like this:
+> "Expected n values in column chunk at /path/to/concatenated/parquet/file offset m but got x values instead over y pages ending at file offset z"
+> Amazon recommends using **PySpark** instead. You can't specify the target file size in PySpark, but you can specify the number of partitions. Spark saves each partition to a separate output file. To estimate the number of partitions that you need, divide the size of the dataset by the target individual file size.
+
+
 ![Alt text](emr_s3_emrfs.png)
 
 ### EMRFS Identity & Access Management (IAM)

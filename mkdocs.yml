@@ -27,6 +27,7 @@ nav:
       - Athena: processing/athena.md 
       - Amazon EMR: processing/amazon_emr.md
       - Glue: processing/glue.md
+      - AWS IOT: processing/aws_iot.md
   - Storage:
       - Storage: storage/storage.md
   - Visualization:

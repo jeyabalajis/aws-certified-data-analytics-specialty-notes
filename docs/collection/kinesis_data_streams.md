@@ -104,6 +104,15 @@
 - Checkpoints processed records
 - Balances shard-worker associations (leases) when the worker instance count changes or when the data stream is resharded (shards are split or merged)
 
+### KCL Architecture
+Key bottleneck areas:
+- `ProvisionedThroughputExceededException` for Kinesis Data Stream in CloudWatch Metrics
+- KCL EC2 Instances CPU Utilization exceeds a certain percentage (say 80%) indicates that EC2 Instances must be auto-scaled.
+- DynamoDB Write Capacity Unit (WCU) could be low, introducing overall latency.
+ 
+
+![KCL Architecture](kcl_architecture.png)
+
 ## Resilience
 
 - **A record processor could fail.** 

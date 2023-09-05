@@ -24,6 +24,7 @@
 - If AWS Glue doesn’t find a custom classifier that fits the input data format with 100 percent certainty, then AWS Glue invokes the built-in classifiers. 
 - The built-in classifier returns either certainty=1.0 if the format matches, or certainty=0.0 if the format doesn't match. 
 - If no classifier returns certainty=1.0, then AWS Glue uses the output of the classifier that has the highest certainty.
+- Updating the Glue Catalog takes some time. If up-to-date results are required immediately, Apache Presto can be used to query all the datasets in place.
 
 > If no classifier returns a certainty of higher than 0.0, then AWS Glue returns the default classification string of UNKNOWN. 
 

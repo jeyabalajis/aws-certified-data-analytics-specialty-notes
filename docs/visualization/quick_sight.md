@@ -65,3 +65,5 @@ Kibana is built into Amazon ES.
 ## S3 Integration
 - Datasets created using Amazon S3 as the data source are automatically imported into SPICE. 
 - The Amazon QuickSight console allows for the refresh of SPICE data on a schedule.
+
+> You need to authorize Amazon QuickSight to access your S3 bucket from within the Amazon QuickSight Console.

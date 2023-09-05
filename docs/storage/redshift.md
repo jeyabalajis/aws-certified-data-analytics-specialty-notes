@@ -49,4 +49,15 @@ The following methods allow efficient and fast transfer of these bulk datasets i
 - You can partition your data by any key. A common practice is to **partition the data based on time**.
 
 
-### Monitor daily ETL health using diagnostic queries
+### Backups
+
+- To create a point-in-time backup of a cluster, you can use a snapshot. 
+- There are two types of snapshots: **automated** and **manual**. 
+- The backups you will create are stored in an Amazon S3 bucket. 
+
+#### Automated Snapshot
+- If an automated snapshot is enabled, Amazon Redshift will take a snapshot _every eight hours_ or _following every 5 GB per node of data changes_, or whichever comes first.
+
+#### Manual Snapshot
+- A manual snapshot can be taken at any time.
+- By default, manual snapshots are retained indefinitely, even after you delete your cluster.
