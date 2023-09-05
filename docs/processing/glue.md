@@ -27,3 +27,9 @@
 ## Glue Data Catalog
 
 ![Alt text](glue_data_catalog_with_crawler.png)
+
+## Glue support
+
+> AWS Glue job usually executes _Apache Spark_, _Spark Streaming_, or _Python shell scripts_ only. 
+
+> AWS Glue doesn't directly support Apache Hive.

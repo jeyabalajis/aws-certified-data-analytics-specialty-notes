@@ -30,6 +30,8 @@ nav:
       - AWS IOT: processing/aws_iot.md
   - Storage:
       - Storage: storage/storage.md
+      - Redshift: storage/redshift.md
+      - S3: storage/s3.md
   - Visualization:
       - Visualization: visualization/visualization.md
       - Quicksight: visualization/quick_sight.md
