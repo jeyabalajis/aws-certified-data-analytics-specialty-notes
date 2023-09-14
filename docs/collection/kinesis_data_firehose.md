@@ -49,3 +49,10 @@ Amazon Kinesis Data Firehose is a fully managed service for _delivering real-tim
 > For real time, use Lambda instead of Kinesis Data Firehose.
 
 > For real time analytics, use Kinesis data Streams in conjunction with Kinesis Data Analytics.
+
+## Kinesis Data Firehose to S3
+- Kinesis Data Firehose can be configured with custom prefixes and dynamic partitioning. 
+- Using these features, you can configure the Amazon S3 keys and set up partitioning schemes that better support your use case.
+- You can also use partition projection with these partitioning schemes and configure them accordingly.
+
+> For example, you could use the custom prefix feature to get Amazon S3 keys that have ISO formatted dates instead of the default yyyy/MM/dd/HH scheme. You can also combine custom prefixes with dynamic partitioning to extract a property like customer_id from Kinesis Data Firehose messages.

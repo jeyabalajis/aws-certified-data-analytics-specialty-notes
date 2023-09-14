@@ -1,6 +1,11 @@
 # Amazon EMR
+- Amazon EMR is highly scalable big data platform that supports open source tools such as _Apache Spark_, _Apache Hive_, _Apache HBase_, _Apache Flink_, _Apache Hudi (Incubating)_, and _Presto_.
+- With EMR you can run Petabyte-scale analysis at less than half of the cost of traditional on-premises solutions and over 3x faster than standard Apache Spark.
+- For short-running jobs, you can spin up and spin down clusters and pay per second for the instances used.
+- For long-running workloads, you can create highly available clusters that automatically scale to meet demand.
 
-Amazon EMR is highly scalable big data platform that supports open source tools such as _Apache Spark_, _Apache Hive_, _Apache HBase_, _Apache Flink_, _Apache Hudi (Incubating)_, and _Presto_.
+Amazon EMR supports a number of databases as target
+![Alt text](amazon_emr_db_support.png)
 
 ## Apache Ranger on EMR
 
@@ -8,9 +13,9 @@ Amazon EMR is highly scalable big data platform that supports open source tools 
 
 ### Key Characteristics
 
-- Centralized security administration and auditing
-- Fine-grained authorization across many Hadoop components (Hadoop, Hive, HBase, Storm, Knox, Solr, Kafka, and YARN)
-- Syncs policies and users by using agents and plugins that run within the same process as the Hadoop component
+- Centralized security administration and auditing.
+- Fine-grained authorization across many Hadoop components (Hadoop, Hive, HBase, Storm, Knox, Solr, Kafka, and YARN).
+- Syncs policies and users by using agents and plugins that run within the same process as the Hadoop component.
 - Supports row-level authentication and auditing capabilities with embedded search.
 
 ## Amazon EMR & Events
@@ -20,8 +25,8 @@ Amazon EMR is highly scalable big data platform that supports open source tools 
 
 ## EMRFS
 
-- EMRFS uses an Amazon DynamoDB database to store object metadata and track consistency in Amazon S3
-- EMRFS allows you to define retry rules for processing inconsistencies
+- EMRFS uses an Amazon DynamoDB database to store object metadata and track consistency in Amazon S3.
+- EMRFS allows you to define retry rules for processing inconsistencies.
 
 ## S3DistCP Tool
 
@@ -164,3 +169,6 @@ Hudi brings (a) transactions (b) change streams and (c) record-level updates/del
 - Options for at-rest data encryption include both Amazon S3 with EMRFS and local-disk encryption. 
 - In-transit encryption options enable the open-source encryption features for certain applications that support Transport Layer Security (TLS). 
 - At-rest options and in-transit options can be enabled together or separately.
+
+## EMR and DynamoDB
+- AWS offers out-of-the-box Amazon Elastic MapReduce (Amazon EMR) integration with Amazon DynamoDB, providing customers an integrated solution that eliminates the often prohibitive costs of administration, maintenance, and upfront hardware.

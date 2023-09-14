@@ -61,3 +61,26 @@ The following methods allow efficient and fast transfer of these bulk datasets i
 #### Manual Snapshot
 - A manual snapshot can be taken at any time.
 - By default, manual snapshots are retained indefinitely, even after you delete your cluster.
+
+## Best Practices
+- Distribute the fact table and one dimension table on their common columns.
+    - Your fact table can have only one distribution key.
+    - Any tables that join on another key aren't collocated with the fact table.
+    - Choose one dimension to collocate based on how frequently it is joined and the size of the joining rows.
+    - Designate both the dimension table's primary key and the fact table's corresponding foreign key as the DISTKEY.
+- Choose a column with high cardinality in the filtered result set.
+    - If you distribute a sales table on a date column, for example, you should probably get fairly even data distribution, unless most of your sales are seasonal.
+    - However, if you commonly use a range-restricted predicate to filter for a narrow date period, most of the filtered rows occur on a limited set of slices and the query workload is skewed.
+- Choose the largest dimension based on the size of the filtered dataset.
+- Change some dimension tables to use ALL distribution.
+
+
+### Table Distribution Style
+A table might be defined with a DISTSTYLE of EVEN, KEY, or ALL.
+
+- EVEN will do a round-robin distribution of data.
+- KEY requires a single column to be defined as a DISTKEY. On ingest, Amazon Redshift hashes each DISTKEY column value, and route hashes to the same slice consistently.
+- ALL distribution stores a full copy of the table on the first slice of each node.
+
+Which style is most appropriate for your table is determined by several criteria.
+![Alt text](redshift_table_diststyle.png)
