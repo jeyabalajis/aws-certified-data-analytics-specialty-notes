@@ -1,0 +1,1319 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="athena.html">
+      
+      
+        <link rel="next" href="glue.html">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.6">
+    
+    
+      
+        <title>Amazon EMR - AWS Certified Data Analytics Specialty - Concept Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.558e4712.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.2505c338.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#amazon-emr" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="AWS Certified Data Analytics Specialty - Concept Notes" class="md-header__button md-logo" aria-label="AWS Certified Data Analytics Specialty - Concept Notes" data-md-component="logo">
+      
+  <img src="../images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AWS Certified Data Analytics Specialty - Concept Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Amazon EMR
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/jeyabalajis/aws-certified-data-analytics-specialty-notes.git" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="AWS Certified Data Analytics Specialty - Concept Notes" class="md-nav__button md-logo" aria-label="AWS Certified Data Analytics Specialty - Concept Notes" data-md-component="logo">
+      
+  <img src="../images/logo.png" alt="logo">
+
+    </a>
+    AWS Certified Data Analytics Specialty - Concept Notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/jeyabalajis/aws-certified-data-analytics-specialty-notes.git" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2" tabindex="0" aria-expanded="false">
+          Collection
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Collection" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Collection
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../collection/collection.html" class="md-nav__link">
+        Collection
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../collection/kinesis_data_firehose.html" class="md-nav__link">
+        Kinesis Data Firehose
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../collection/kinesis_data_streams.html" class="md-nav__link">
+        Kinesis Data Streams
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../collection/glue_etl.html" class="md-nav__link">
+        Glue ETL
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../collection/dynamodb_streams.html" class="md-nav__link">
+        Dynamo DB Streams
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../collection/database_migration_service.html" class="md-nav__link">
+        Database Migration Service
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3" tabindex="0" aria-expanded="true">
+          Processing
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Processing" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Processing
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="processing.html" class="md-nav__link">
+        Processing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="athena.html" class="md-nav__link">
+        Athena
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Amazon EMR
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="amazon_emr.html" class="md-nav__link md-nav__link--active">
+        Amazon EMR
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#apache-ranger-on-emr" class="md-nav__link">
+    Apache Ranger on EMR
+  </a>
+  
+    <nav class="md-nav" aria-label="Apache Ranger on EMR">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-characteristics" class="md-nav__link">
+    Key Characteristics
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#amazon-emr-events" class="md-nav__link">
+    Amazon EMR &amp; Events
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#emrfs" class="md-nav__link">
+    EMRFS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#s3distcp-tool" class="md-nav__link">
+    S3DistCP Tool
+  </a>
+  
+    <nav class="md-nav" aria-label="S3DistCP Tool">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#emrfs-identity-access-management-iam" class="md-nav__link">
+    EMRFS Identity &amp; Access Management (IAM)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notifications" class="md-nav__link">
+    Notifications
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#high-availability" class="md-nav__link">
+    High Availability
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#auto-scaling" class="md-nav__link">
+    Auto-scaling
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metastore" class="md-nav__link">
+    Metastore
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#emr-components" class="md-nav__link">
+    EMR Components
+  </a>
+  
+    <nav class="md-nav" aria-label="EMR Components">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#presto" class="md-nav__link">
+    Presto
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spark" class="md-nav__link">
+    Spark
+  </a>
+  
+    <nav class="md-nav" aria-label="Spark">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stream-processing" class="md-nav__link">
+    Stream processing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interactive-sql" class="md-nav__link">
+    Interactive SQL
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hive" class="md-nav__link">
+    Hive
+  </a>
+  
+    <nav class="md-nav" aria-label="Hive">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ad-hoc-sql-queries-on-s3" class="md-nav__link">
+    Ad-Hoc SQL Queries on S3
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hbase" class="md-nav__link">
+    HBase
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hudi" class="md-nav__link">
+    Hudi
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transient-clusters" class="md-nav__link">
+    Transient Clusters
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#process-data-with-custom-jar" class="md-nav__link">
+    Process Data with Custom JAR
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#encryption" class="md-nav__link">
+    Encryption
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#emr-and-dynamodb" class="md-nav__link">
+    EMR and DynamoDB
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="glue.html" class="md-nav__link">
+        Glue
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="aws_iot.html" class="md-nav__link">
+        AWS IOT
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4" tabindex="0" aria-expanded="false">
+          Storage
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Storage" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Storage
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../storage/storage.html" class="md-nav__link">
+        Storage
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../storage/redshift.html" class="md-nav__link">
+        Redshift
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../storage/s3.html" class="md-nav__link">
+        S3
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5" tabindex="0" aria-expanded="false">
+          Visualization
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Visualization" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Visualization
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../visualization/visualization.html" class="md-nav__link">
+        Visualization
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../visualization/quick_sight.html" class="md-nav__link">
+        Quicksight
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../visualization/open_search.html" class="md-nav__link">
+        Open Search
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6" tabindex="0" aria-expanded="false">
+          Exam Preparation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Exam Preparation" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Exam Preparation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../exam_prep/exam_preparation.html" class="md-nav__link">
+        Exam Preparation
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#apache-ranger-on-emr" class="md-nav__link">
+    Apache Ranger on EMR
+  </a>
+  
+    <nav class="md-nav" aria-label="Apache Ranger on EMR">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-characteristics" class="md-nav__link">
+    Key Characteristics
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#amazon-emr-events" class="md-nav__link">
+    Amazon EMR &amp; Events
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#emrfs" class="md-nav__link">
+    EMRFS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#s3distcp-tool" class="md-nav__link">
+    S3DistCP Tool
+  </a>
+  
+    <nav class="md-nav" aria-label="S3DistCP Tool">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#emrfs-identity-access-management-iam" class="md-nav__link">
+    EMRFS Identity &amp; Access Management (IAM)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notifications" class="md-nav__link">
+    Notifications
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#high-availability" class="md-nav__link">
+    High Availability
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#auto-scaling" class="md-nav__link">
+    Auto-scaling
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metastore" class="md-nav__link">
+    Metastore
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#emr-components" class="md-nav__link">
+    EMR Components
+  </a>
+  
+    <nav class="md-nav" aria-label="EMR Components">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#presto" class="md-nav__link">
+    Presto
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spark" class="md-nav__link">
+    Spark
+  </a>
+  
+    <nav class="md-nav" aria-label="Spark">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stream-processing" class="md-nav__link">
+    Stream processing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interactive-sql" class="md-nav__link">
+    Interactive SQL
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hive" class="md-nav__link">
+    Hive
+  </a>
+  
+    <nav class="md-nav" aria-label="Hive">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ad-hoc-sql-queries-on-s3" class="md-nav__link">
+    Ad-Hoc SQL Queries on S3
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hbase" class="md-nav__link">
+    HBase
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hudi" class="md-nav__link">
+    Hudi
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transient-clusters" class="md-nav__link">
+    Transient Clusters
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#process-data-with-custom-jar" class="md-nav__link">
+    Process Data with Custom JAR
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#encryption" class="md-nav__link">
+    Encryption
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#emr-and-dynamodb" class="md-nav__link">
+    EMR and DynamoDB
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+
+<h1 id="amazon-emr">Amazon EMR</h1>
+<ul>
+<li>Amazon EMR is highly scalable big data platform that supports open source tools such as <em>Apache Spark</em>, <em>Apache Hive</em>, <em>Apache HBase</em>, <em>Apache Flink</em>, <em>Apache Hudi (Incubating)</em>, and <em>Presto</em>.</li>
+<li>With EMR you can run Petabyte-scale analysis at less than half of the cost of traditional on-premises solutions and over 3x faster than standard Apache Spark.</li>
+<li>For short-running jobs, you can spin up and spin down clusters and pay per second for the instances used.</li>
+<li>For long-running workloads, you can create highly available clusters that automatically scale to meet demand.</li>
+</ul>
+<p>Amazon EMR supports a number of databases as target
+<img alt="Alt text" src="amazon_emr_db_support.png" /></p>
+<h2 id="apache-ranger-on-emr">Apache Ranger on EMR</h2>
+<blockquote>
+<p>Apache Ranger is a role-based access control framework to enable, monitor, and manage comprehensive data security across the Hadoop platform. </p>
+</blockquote>
+<h3 id="key-characteristics">Key Characteristics</h3>
+<ul>
+<li>Centralized security administration and auditing.</li>
+<li>Fine-grained authorization across many Hadoop components (Hadoop, Hive, HBase, Storm, Knox, Solr, Kafka, and YARN).</li>
+<li>Syncs policies and users by using agents and plugins that run within the same process as the Hadoop component.</li>
+<li>Supports row-level authentication and auditing capabilities with embedded search.</li>
+</ul>
+<h2 id="amazon-emr-events">Amazon EMR &amp; Events</h2>
+<ul>
+<li>You can now respond to Amazon EMR cluster state changes with Amazon CloudWatch Events. </li>
+<li>The new Amazon EMR event types in Amazon CloudWatch Events provide information including state and related severity for Amazon EMR clusters, instance groups, steps, and Auto Scaling policies.</li>
+</ul>
+<h2 id="emrfs">EMRFS</h2>
+<ul>
+<li>EMRFS uses an Amazon DynamoDB database to store object metadata and track consistency in Amazon S3.</li>
+<li>EMRFS allows you to define retry rules for processing inconsistencies.</li>
+</ul>
+<h2 id="s3distcp-tool">S3DistCP Tool</h2>
+<ul>
+<li>Apache DistCp is an open-source tool you can use to copy large amounts of data. </li>
+<li>S3DistCp is similar to DistCp, but optimized to work with AWS, particularly Amazon S3. <strong>S3DistCp</strong> is more performant than <strong>DistCp</strong>. </li>
+<li>The command for S3DistCp in Amazon EMR version 4.0 and later is s3-dist-cp, which you add as a step in a cluster or at the command line. </li>
+<li>Using S3DistCp, you can efficiently copy large amounts of data <em>from Amazon S3 into HDFS</em> where it can be processed by subsequent steps in your Amazon EMR cluster. </li>
+<li>You can also use S3DistCp to <em>copy data between Amazon S3 buckets</em> or <em>from HDFS to Amazon S3</em>. </li>
+<li>S3DistCp is more scalable and efficient for parallel copying large numbers of objects across buckets and across AWS accounts.</li>
+</ul>
+<blockquote>
+<p>By adding S3DistCp as a step in a job flow, you can efficiently copy large amounts of data from Amazon S3 into HDFS, where subsequent steps in your EMR clusters can process it.</p>
+<p>S3DistCp does not support concatenation for Parquet files. When you attempt to concatenate them, you get an error message like this:
+"Expected n values in column chunk at /path/to/concatenated/parquet/file offset m but got x values instead over y pages ending at file offset z"
+Amazon recommends using <strong>PySpark</strong> instead. You can't specify the target file size in PySpark, but you can specify the number of partitions. Spark saves each partition to a separate output file. To estimate the number of partitions that you need, divide the size of the dataset by the target individual file size.</p>
+</blockquote>
+<p><img alt="Alt text" src="emr_s3_emrfs.png" /></p>
+<h3 id="emrfs-identity-access-management-iam">EMRFS Identity &amp; Access Management (IAM)</h3>
+<ul>
+<li>EMRFS uses the permissions attached to the service role for cluster EC2 instances by default.</li>
+<li>When you have multiple cluster users and multiple data stores, you may want users to have different permissions to EMRFS data in Amazon S3. </li>
+<li>To do this, you can you can use IAM roles for EMRFS. </li>
+<li>This allows EMRFS to assume different roles with different permissions policies based on the user or group making the request or the location of EMRFS data in Amazon S3.</li>
+</ul>
+<blockquote>
+<p>Because IAM roles for EMRFS will fall back to the permissions attached to the service role for cluster EC2 instances, as a best practice, we recommend that you use IAM roles for EMRFS, and limit the EMRFS and Amazon S3 permissions attached to the service role for cluster EC2 instances.</p>
+<p>With the release of Amazon S3 strong read-after-write consistency on December 1, 2020, you no longer need to use EMRFS consistent view (EMRFS CV) with your Amazon EMR clusters.</p>
+</blockquote>
+<h2 id="notifications">Notifications</h2>
+<p>Amazon EMR can only be configured as a publisher to an SNS topic—it cannot subscribe to notifications.</p>
+<h2 id="high-availability">High Availability</h2>
+<ul>
+<li>Amazon EMR supports multiple master nodes to enable high availability for EMR applications. </li>
+<li>Launch an EMR cluster with three master nodes and support high availability applications like YARN Resource Manager, HDFS Name Node, Spark, Hive, and Ganglia. </li>
+<li><em>EMR clusters with multiple master nodes are not tolerant of Availability Zone failures. In the case of an Availability Zone outage, you lose access to the EMR cluster.</em></li>
+<li>Using the Amazon EMR version 5.7.0 or later, you can set up a read-replica cluster, which allows you to maintain read-only copies of data in Amazon S3. In the event that the primary cluster becomes unavailable, you can access the data from the read-replica cluster to perform read operations simultaneously.</li>
+</ul>
+<h2 id="auto-scaling">Auto-scaling</h2>
+<p>When you create a cluster and specify the configuration of the master node, core nodes, and task nodes, you have two configuration options. You can use:</p>
+<ul>
+<li>Instance fleets</li>
+<li><strong>Instance groups (provides autoscaling)</strong></li>
+</ul>
+<p>When automatic scaling is configured, Amazon EMR adds and removes instances based on Amazon CloudWatch metrics that you specify.</p>
+<p>The following are two of the most common metrics used for automatic scaling in Amazon EMR:</p>
+<ul>
+<li><strong>YarnMemoryAvailablePercentage</strong>: The percentage of remaining memory available to YARN.</li>
+<li><strong>ContainerPendingRatio</strong>: The ratio of pending containers to containers allocated. You can use this metric to scale a cluster based on container-allocation behavior for varied loads, which is useful for performance tuning.</li>
+<li><strong>CapacityRemainingGB</strong> metric is the amount of remaining HDFS disk capacity.</li>
+</ul>
+<h2 id="metastore">Metastore</h2>
+<p>Using Amazon EMR version 5.8.0 or later, you can configure Hive to use the AWS Glue Data Catalog as its metastore. This configuration is recommended if the metastore is shared by different clusters.</p>
+<h2 id="emr-components">EMR Components</h2>
+<h3 id="presto">Presto</h3>
+<ul>
+<li>Presto is a fast SQL query engine designed for interactive analytic queries over large datasets from multiple sources. </li>
+<li>It supports both non-relational sources, such as the Hadoop Distributed File System (HDFS), Amazon S3, and HBase, and relational data sources such as MySQL, PostgreSQL, and Amazon Redshift. </li>
+<li><em>Presto can query data where it’s stored, without needing to move data into a separate analytics system</em>. </li>
+<li><em>Query execution runs in parallel over a pure memory-based architecture, with most results returning in seconds</em>.</li>
+</ul>
+<blockquote>
+<p>You can launch a Presto on Amazon EMR cluster in minutes. You don’t need to worry about node provisioning, cluster setup, configuration, or cluster tuning. Amazon EMR takes care of these tasks so you can focus on analysis.</p>
+<p>If the use case is <em>Interactive Analytic queries over <u>large datasets</u> from <u>multiple sources</u></em>, choose Presto on EMR.</p>
+</blockquote>
+<h3 id="spark">Spark</h3>
+<ul>
+<li>Apache Spark is an open-source, distributed processing system used for big data workloads. </li>
+<li>It utilizes in-memory caching, and optimized query execution for fast analytic queries against data of any size. </li>
+<li>It provides development APIs in Java, Scala, Python and R, and supports code reuse across multiple workloads—batch processing, interactive queries, real-time analytics, machine learning, and graph processing.</li>
+<li>One of the speed advantages of Apache Spark comes from loading data into immutable dataframes, which can be accessed repeatedly in memory. </li>
+<li>Spark DataFrames organizes distributed data into columns. This makes summaries and aggregates much quicker to calculate.</li>
+</ul>
+<h4 id="stream-processing">Stream processing</h4>
+<ul>
+<li>Consume and process real-time data from Amazon Kinesis, Apache Kafka, or other data streams with Spark Streaming on EMR. </li>
+<li>Perform streaming analytics in a fault-tolerant way and write results to S3 or on-cluster HDFS.</li>
+</ul>
+<blockquote>
+<p>For a more efficient stream processing Flink could be a better fit than Spark (since Spark employs a micro-batch approach)</p>
+</blockquote>
+<h4 id="interactive-sql">Interactive SQL</h4>
+<ul>
+<li>Use Spark SQL for low-latency, interactive queries with SQL or HiveQL. </li>
+<li>Spark on EMR can leverage EMRFS, so you can have ad hoc access to your datasets in S3. </li>
+<li>Also, you can utilize EMR Studio, EMR Notebooks, Zeppelin notebooks, or BI tools via ODBC and JDBC connections.</li>
+</ul>
+<h3 id="hive">Hive</h3>
+<p>Apache Hive is an open-source, distributed, fault-tolerant system that provides data warehouse-like query capabilities. It enables users to read, write, and manage petabytes of data using a SQL-like interface.</p>
+<blockquote>
+<p><strong>Hive vs HBase</strong>: Apache HBase is a NoSQL distributed database that enables random, strictly consistent, real-time access to petabytes of data. Apache Hive is a distributed data warehouse system that provides SQL-like querying capabilities.</p>
+</blockquote>
+<h4 id="ad-hoc-sql-queries-on-s3">Ad-Hoc SQL Queries on S3</h4>
+<ul>
+<li>Airbnb uses Amazon EMR to run Apache Hive on a S3 data lake. </li>
+<li>Running Hive on the EMR clusters enables Airbnb analysts to perform ad hoc SQL queries on data stored in the S3 data lake. </li>
+<li>By migrating to a S3 data lake, Airbnb reduced expenses, can now do cost attribution, and increased the speed of Apache Spark jobs by three times their original speed.</li>
+</ul>
+<blockquote>
+<p>Hive enables analysts to perform ad hoc SQL queries on data stored in the S3 data lake. This reduces operational costs.</p>
+<p>Using Amazon EMR version 5.8.0 or later, you can <u>configure Hive to use the AWS Glue Data Catalog as its metastore</u>. This configuration is recommended if the metastore is shared by different clusters.</p>
+<p><strong>Hive vs. Impala</strong>: The main difference between Hive and Impala is that the Hive is a data warehouse software that can be used to access and manage large distributed datasets built on Hadoop while Impala is a massive parallel processing SQL engine for managing and analyzing data stored on Hadoop.</p>
+</blockquote>
+<h3 id="hbase">HBase</h3>
+<ul>
+<li>Apache HBase is an open-source, NoSQL, distributed big data store. </li>
+<li>It enables random, strictly consistent, real-time access to petabytes of data. </li>
+<li>HBase is very effective for handling large, sparse datasets.</li>
+<li>HBase integrates seamlessly with Apache Hadoop and the Hadoop ecosystem and runs on top of the Hadoop Distributed File System (HDFS) or Amazon S3 using Amazon Elastic MapReduce (EMR) file system, or EMRFS. </li>
+<li>HBase serves as a direct input and output to the Apache MapReduce framework for Hadoop, and works with Apache Phoenix to enable SQL-like queries over HBase tables.</li>
+</ul>
+<h3 id="hudi">Hudi</h3>
+<p>Hudi brings (a) transactions (b) change streams and (c) record-level updates/deletes to Data Lakes.</p>
+<p><img alt="Apache Hudi" src="../images/apache_hudi.png" /></p>
+<h2 id="transient-clusters">Transient Clusters</h2>
+<ul>
+<li>Amazon EMR can be used to quickly and cost-effectively perform data transformation workloads (ETL) such as sort, aggregate, and join on large datasets. </li>
+<li>You can use a <strong>transient cluster</strong> to aggregate the sensors' data each night. After it is completed, the transient clusters are <em>automatically terminated</em>. </li>
+<li>This service will help you save costs since it will only run each night, and you can use Amazon QuickSight to get insights instantly and effortlessly.</li>
+</ul>
+<h2 id="process-data-with-custom-jar">Process Data with Custom JAR</h2>
+<ul>
+<li>A custom JAR runs a compiled Java program that you can upload to Amazon S3. </li>
+<li>You should compile the program against the version of Hadoop you want to launch, and submit a CUSTOM_JAR step to your Amazon EMR cluster.</li>
+</ul>
+<h2 id="encryption">Encryption</h2>
+<ul>
+<li>You can choose to encrypt data in Amazon S3, local disks, or both.</li>
+<li>When you create a security configuration, you specify two sets of encryption options: at-rest data encryption and in-transit data encryption. </li>
+<li>Options for at-rest data encryption include both Amazon S3 with EMRFS and local-disk encryption. </li>
+<li>In-transit encryption options enable the open-source encryption features for certain applications that support Transport Layer Security (TLS). </li>
+<li>At-rest options and in-transit options can be enabled together or separately.</li>
+</ul>
+<h2 id="emr-and-dynamodb">EMR and DynamoDB</h2>
+<ul>
+<li>AWS offers out-of-the-box Amazon Elastic MapReduce (Amazon EMR) integration with Amazon DynamoDB, providing customers an integrated solution that eliminates the often prohibitive costs of administration, maintenance, and upfront hardware.</li>
+</ul>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.e5c33ebb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.51d95adb.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1440 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="kinesis_data_firehose.html">
+      
+      
+        <link rel="next" href="glue_etl.html">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.6">
+    
+    
+      
+        <title>Kinesis Data Streams - AWS Certified Data Analytics Specialty - Concept Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.558e4712.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.2505c338.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#kinesis-data-streams" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="AWS Certified Data Analytics Specialty - Concept Notes" class="md-header__button md-logo" aria-label="AWS Certified Data Analytics Specialty - Concept Notes" data-md-component="logo">
+      
+  <img src="../images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AWS Certified Data Analytics Specialty - Concept Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Kinesis Data Streams
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/jeyabalajis/aws-certified-data-analytics-specialty-notes.git" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="AWS Certified Data Analytics Specialty - Concept Notes" class="md-nav__button md-logo" aria-label="AWS Certified Data Analytics Specialty - Concept Notes" data-md-component="logo">
+      
+  <img src="../images/logo.png" alt="logo">
+
+    </a>
+    AWS Certified Data Analytics Specialty - Concept Notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/jeyabalajis/aws-certified-data-analytics-specialty-notes.git" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2" tabindex="0" aria-expanded="true">
+          Collection
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Collection" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Collection
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="collection.html" class="md-nav__link">
+        Collection
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="kinesis_data_firehose.html" class="md-nav__link">
+        Kinesis Data Firehose
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Kinesis Data Streams
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="kinesis_data_streams.html" class="md-nav__link md-nav__link--active">
+        Kinesis Data Streams
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ingress-limitations" class="md-nav__link">
+    Ingress Limitations
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kinesis-producer-library" class="md-nav__link">
+    Kinesis Producer Library
+  </a>
+  
+    <nav class="md-nav" aria-label="Kinesis Producer Library">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-kpl-handles" class="md-nav__link">
+    What KPL handles:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kpl-features" class="md-nav__link">
+    KPL Features
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aggregation" class="md-nav__link">
+    Aggregation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#collection" class="md-nav__link">
+    Collection
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#async-and-futures" class="md-nav__link">
+    Async and Futures
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kds-vs-amazon-dynamodb-streams" class="md-nav__link">
+    KDS vs Amazon DynamoDB streams
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kinesis-agent" class="md-nav__link">
+    Kinesis Agent
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kinesis-data-streams-api" class="md-nav__link">
+    Kinesis Data Streams API
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integrating-with-aws-glue-schema-registry" class="md-nav__link">
+    Integrating with AWS Glue Schema Registry
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kinesis-consumer-library-kcl" class="md-nav__link">
+    Kinesis Consumer Library (KCL)
+  </a>
+  
+    <nav class="md-nav" aria-label="Kinesis Consumer Library (KCL)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kcl-vs-data-streams-api" class="md-nav__link">
+    KCL vs. Data Streams API
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kcl-sub-tasks" class="md-nav__link">
+    KCL Sub Tasks
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kcl-architecture" class="md-nav__link">
+    KCL Architecture
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resilience" class="md-nav__link">
+    Resilience
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scalability" class="md-nav__link">
+    Scalability
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#randon-shard-allocation-vs-specific-shard-allocation" class="md-nav__link">
+    Randon Shard Allocation vs. Specific Shard Allocation
+  </a>
+  
+    <nav class="md-nav" aria-label="Randon Shard Allocation vs. Specific Shard Allocation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#random-partition-keys" class="md-nav__link">
+    Random Partition Keys
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#specific-partition-keys" class="md-nav__link">
+    Specific Partition Keys
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    Troubleshooting
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#producers" class="md-nav__link">
+    Producers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#consumers" class="md-nav__link">
+    Consumers
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#anti-patterns" class="md-nav__link">
+    Anti-patterns
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kinesis-vs-msk" class="md-nav__link">
+    Kinesis vs. MSK
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#msk" class="md-nav__link">
+    MSK
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    References
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="glue_etl.html" class="md-nav__link">
+        Glue ETL
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="dynamodb_streams.html" class="md-nav__link">
+        Dynamo DB Streams
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="database_migration_service.html" class="md-nav__link">
+        Database Migration Service
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3" tabindex="0" aria-expanded="false">
+          Processing
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Processing" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Processing
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../processing/processing.html" class="md-nav__link">
+        Processing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../processing/athena.html" class="md-nav__link">
+        Athena
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../processing/amazon_emr.html" class="md-nav__link">
+        Amazon EMR
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../processing/glue.html" class="md-nav__link">
+        Glue
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../processing/aws_iot.html" class="md-nav__link">
+        AWS IOT
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4" tabindex="0" aria-expanded="false">
+          Storage
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Storage" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Storage
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../storage/storage.html" class="md-nav__link">
+        Storage
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../storage/redshift.html" class="md-nav__link">
+        Redshift
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../storage/s3.html" class="md-nav__link">
+        S3
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5" tabindex="0" aria-expanded="false">
+          Visualization
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Visualization" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Visualization
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../visualization/visualization.html" class="md-nav__link">
+        Visualization
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../visualization/quick_sight.html" class="md-nav__link">
+        Quicksight
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../visualization/open_search.html" class="md-nav__link">
+        Open Search
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6" tabindex="0" aria-expanded="false">
+          Exam Preparation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Exam Preparation" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Exam Preparation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../exam_prep/exam_preparation.html" class="md-nav__link">
+        Exam Preparation
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ingress-limitations" class="md-nav__link">
+    Ingress Limitations
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kinesis-producer-library" class="md-nav__link">
+    Kinesis Producer Library
+  </a>
+  
+    <nav class="md-nav" aria-label="Kinesis Producer Library">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-kpl-handles" class="md-nav__link">
+    What KPL handles:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kpl-features" class="md-nav__link">
+    KPL Features
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aggregation" class="md-nav__link">
+    Aggregation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#collection" class="md-nav__link">
+    Collection
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#async-and-futures" class="md-nav__link">
+    Async and Futures
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kds-vs-amazon-dynamodb-streams" class="md-nav__link">
+    KDS vs Amazon DynamoDB streams
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kinesis-agent" class="md-nav__link">
+    Kinesis Agent
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kinesis-data-streams-api" class="md-nav__link">
+    Kinesis Data Streams API
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integrating-with-aws-glue-schema-registry" class="md-nav__link">
+    Integrating with AWS Glue Schema Registry
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kinesis-consumer-library-kcl" class="md-nav__link">
+    Kinesis Consumer Library (KCL)
+  </a>
+  
+    <nav class="md-nav" aria-label="Kinesis Consumer Library (KCL)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kcl-vs-data-streams-api" class="md-nav__link">
+    KCL vs. Data Streams API
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kcl-sub-tasks" class="md-nav__link">
+    KCL Sub Tasks
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kcl-architecture" class="md-nav__link">
+    KCL Architecture
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resilience" class="md-nav__link">
+    Resilience
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scalability" class="md-nav__link">
+    Scalability
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#randon-shard-allocation-vs-specific-shard-allocation" class="md-nav__link">
+    Randon Shard Allocation vs. Specific Shard Allocation
+  </a>
+  
+    <nav class="md-nav" aria-label="Randon Shard Allocation vs. Specific Shard Allocation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#random-partition-keys" class="md-nav__link">
+    Random Partition Keys
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#specific-partition-keys" class="md-nav__link">
+    Specific Partition Keys
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    Troubleshooting
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#producers" class="md-nav__link">
+    Producers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#consumers" class="md-nav__link">
+    Consumers
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#anti-patterns" class="md-nav__link">
+    Anti-patterns
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kinesis-vs-msk" class="md-nav__link">
+    Kinesis vs. MSK
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#msk" class="md-nav__link">
+    MSK
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    References
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+
+<h1 id="kinesis-data-streams">Kinesis Data Streams</h1>
+<h2 id="ingress-limitations">Ingress Limitations</h2>
+<ul>
+<li>Each shard can support writes up to 1,000 records per second, up to a maximum data write total of 1 MB per second. </li>
+<li>Each PutRecords request can support up to 500 records. </li>
+<li>Each record in the request can be as large as 1 MB, up to a limit of 5 MB for the entire request, including partition keys.<ul>
+<li>The maximum size of a data blob (the data payload before Base64-encoding) is 1 megabyte (MB).</li>
+</ul>
+</li>
+</ul>
+<h2 id="kinesis-producer-library">Kinesis Producer Library</h2>
+<ul>
+<li>The Amazon Kinesis Producer Library (KPL) performs many tasks common to creating <em>efficient</em> and <em>reliable</em> producers for Amazon Kinesis. By using the KPL, customers do not need to develop the same logic every time they create a new application for data ingestion.</li>
+<li><em>RecordMaxBufferedTime</em>: Maximum amount of time a record is buffered. Large value provides better performance, but causes delay.</li>
+<li>On the same host, <em>KPL achieves around 800 times greater throughput</em>. </li>
+<li>Batching, retries, and monitoring - implementing these by every producer is cumbersome, that is why KPL was created.</li>
+</ul>
+<h3 id="what-kpl-handles">What KPL handles:</h3>
+<ul>
+<li>Multi-threading</li>
+<li>Batching records, instead of sending records one by one (You can save on HTTP Headers space; instead of headers being sent in every request, batching saves on that bandwidth)</li>
+<li>With Batching (i.e. use of <em>PutRecords</em>, some records will partially fail and must be retried.)</li>
+<li>Retry of failed response from Amazon Kinesis API. This also requires <em>exponential backoff</em> handling.</li>
+<li>if you retried failed records without any backoff, then you might end up spamming a shard even though it’s already having problems.</li>
+</ul>
+<blockquote>
+<p>In a cost-optimal architecture, we all want to have as few shards as possible, but still be able to ingest all data promptly at peak traffic.</p>
+<p>To reduce overhead and increase throughput, the application must <em>batch records</em> and <em>implement parallel HTTP requests</em>. It also must deal with the transient failures inherent to any network application and perform <em>retries</em> as needed. And in a large-scale application, <em>monitoring</em> is needed to allow operators to diagnose and troubleshoot any issues that arise.</p>
+</blockquote>
+<h3 id="kpl-features">KPL Features</h3>
+<ul>
+<li>Batching of puts using PutRecords</li>
+<li>Tracking of record age and enforcement of maximum buffering times</li>
+<li>Per-shard record aggregation (the Aggregator)</li>
+<li>Retries in case of errors, with ability to distinguish between retryable and non-retryable errors</li>
+<li>Per-shard rate limiting to prevent excessive and pointless spamming</li>
+<li>Useful metrics and a highly efficient CloudWatch client</li>
+</ul>
+<h3 id="aggregation">Aggregation</h3>
+<ul>
+<li>Record aggregation allows customers to combine multiple records into a single Kinesis Data Streams record. This allows customers to improve their per shard throughput.</li>
+<li><em>You want a binary format that’s unambiguous between the aggregated and non-aggregated case, such that every record can be deserialized correctly at the consumer. This requires code not just in the producer, but the consumer as well.</em></li>
+</ul>
+<h3 id="collection">Collection</h3>
+<ul>
+<li>Collection refers to batching multiple Kinesis Data Streams records and sending them in a single HTTP request with a call to the API operation PutRecords, instead of sending each Kinesis Data Streams record in its own HTTP request.</li>
+</ul>
+<blockquote>
+<p>KPL <strong><em>aggregates</em></strong> multiple records into a single Amazon Kinesis Record, and <strong><em>collects</em></strong> multiple Amazon Kinesis Records into a single <em>PutRecords</em> API call.</p>
+</blockquote>
+<h3 id="async-and-futures">Async and Futures</h3>
+<ul>
+<li>KPL has an asynchronous interface that does not block.</li>
+<li>When addUserRecord is called, the record is placed into a queue serviced by another thread and the method returns immediately with a ListenableFuture object.</li>
+<li>To this, a FutureCallback object can be added that is invoked when the record completes.</li>
+<li>Adding the callback is optional, which means the API can be used in a fire-and-forget fashion.</li>
+</ul>
+<h3 id="kds-vs-amazon-dynamodb-streams">KDS vs Amazon DynamoDB streams</h3>
+<ul>
+<li>Amazon DynamoDB streams offers only 24 hours data retention vs. KDF (configurable upto 365 days)</li>
+<li>DynamoDB cost is higher than that of KDF</li>
+</ul>
+<h2 id="kinesis-agent">Kinesis Agent</h2>
+<ul>
+<li>Kinesis Agent is a stand-alone Java software application that offers an easy way to collect and send data to Kinesis Data Streams. </li>
+<li>The agent continuously monitors a set of files and sends new data to your stream. </li>
+<li>The agent handles file rotation, checkpointing, and retry upon failures.</li>
+<li>By specifying multiple flow configuration settings, you can configure the agent to monitor multiple file directories and send data to multiple streams.</li>
+<li><strong>Kinesis Agent can send data to KDF (i.e. a delivery stream as well)</strong></li>
+</ul>
+<h2 id="kinesis-data-streams-api">Kinesis Data Streams API</h2>
+<ul>
+<li>If your application cannot use the KPL because it cannot incur any additional processing delay, consider using the Kinesis Data Streams API directly.</li>
+<li>Each PutRecords request can support up to 500 records. </li>
+<li>Each record in the request can be as large as 1 MB, <strong>up to a limit of 5 MB for the entire request</strong>, including partition keys.</li>
+<li>A PutRecords request can include records with different partition keys. The scope of the request is a stream; each request may include any combination of partition keys and records up to the request limits.</li>
+</ul>
+<blockquote>
+<p>Prefer the PutRecords operation described in Adding Multiple Records with PutRecords unless your application specifically needs to always send single records per request, or some other reason PutRecords can't be used.</p>
+<p>The Kinesis Producer Library takes a lot of work out of frequently occurring use cases. In return, however, you also lose some freedom: many aspects can no longer be controlled independently. In such scenarios, you can use the AWS SDK or the Kinesis Data Streams API.</p>
+</blockquote>
+<h2 id="integrating-with-aws-glue-schema-registry">Integrating with AWS Glue Schema Registry</h2>
+<ul>
+<li>Currently, Kinesis Data Streams and AWS Glue schema registry integration is only supported for the Kinesis data streams that use KPL producers implemented in Java. Multi-language support is not provided.</li>
+</ul>
+<h2 id="kinesis-consumer-library-kcl">Kinesis Consumer Library (KCL)</h2>
+<ul>
+<li>KCL takes care of many of the complex tasks associated with distributed computing</li>
+<li>This includes the following:<ul>
+<li>Load balancing across multiple consumer application instances</li>
+<li>Responding to consumer application instance failures</li>
+<li>Checkpointing processed records, and </li>
+<li>Reacting to resharding</li>
+</ul>
+</li>
+</ul>
+<h3 id="kcl-vs-data-streams-api">KCL vs. Data Streams API</h3>
+<blockquote>
+<p>The KCL is different from the Kinesis Data Streams APIs that are available in the AWS SDKs. The Kinesis Data Streams APIs help you manage many aspects of Kinesis Data Streams, including creating streams, resharding, and putting and getting records. 
+<strong>The KCL provides a layer of abstraction around all these subtasks, specifically so that you can focus on your consumer application’s custom data processing logic</strong>.</p>
+</blockquote>
+<h3 id="kcl-sub-tasks">KCL Sub Tasks</h3>
+<ul>
+<li>Connects to the data stream</li>
+<li>Enumerates the shards within the data stream</li>
+<li>Uses leases to coordinates shard associations with its workers</li>
+<li>Instantiates a record processor for every shard it manages</li>
+<li>Pulls data records from the data stream</li>
+<li>Pushes the records to the corresponding record processor</li>
+<li>Checkpoints processed records</li>
+<li>Balances shard-worker associations (leases) when the worker instance count changes or when the data stream is resharded (shards are split or merged)</li>
+</ul>
+<h3 id="kcl-architecture">KCL Architecture</h3>
+<p>Key bottleneck areas:
+- <code>ProvisionedThroughputExceededException</code> for Kinesis Data Stream in CloudWatch Metrics
+- KCL EC2 Instances CPU Utilization exceeds a certain percentage (say 80%) indicates that EC2 Instances must be auto-scaled.
+- DynamoDB Write Capacity Unit (WCU) could be low, introducing overall latency.</p>
+<p><img alt="KCL Architecture" src="kcl_architecture.png" /></p>
+<h2 id="resilience">Resilience</h2>
+<ul>
+<li><strong>A record processor could fail.</strong> <ul>
+<li>This is handled by KCL. </li>
+<li>If you find that your application is throttled consistently, you should consider increasing the number of shards for the stream.</li>
+</ul>
+</li>
+<li><strong>A worker could fail, or the instance of the application that instantiated the worker could fail.</strong><ul>
+<li>When the application starts up, it instantiates a new worker, which in turn instantiates new record processors that are automatically assigned shards to process. </li>
+<li>These could be the same shards that these record processors were processing before the failure, or shards that are new to these processors.</li>
+</ul>
+</li>
+<li><strong>An EC2 instance that is hosting one or more instances of the application could fail.</strong><ul>
+<li>We recommend that you run the EC2 instances for your application in an Auto Scaling group. </li>
+<li>This way, if one of the EC2 instances fails, the Auto Scaling group automatically launches a new instance to replace it. </li>
+<li>You should configure the instances to launch your Amazon Kinesis Data Streams application at startup.</li>
+</ul>
+</li>
+<li>Handling duplicate records.<ul>
+<li>Can occur due to producer retry (or) consumer retry.</li>
+<li>Your application must anticipate and appropriately handle processing individual records multiple times.</li>
+<li><strong>Applications that need strict guarantees should embed a primary key within the record to remove duplicates later when processing.</strong> </li>
+<li>Note that the number of duplicates due to producer retries is usually low compared to the number of duplicates due to consumer retries.</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>If the destination of the final data can handle duplicates well, <strong>we recommend relying on the final destination to achieve idempotent processing</strong>. For example, with Opensearch you can use a combination of versioning and unique IDs to prevent duplicated processing.</p>
+</blockquote>
+<h2 id="scalability">Scalability</h2>
+<ul>
+<li>Scalable by shards. With On-demand mode, number of shards is increased dynamically.</li>
+<li>Data is replicated across three Availability Zones.</li>
+</ul>
+<h2 id="randon-shard-allocation-vs-specific-shard-allocation">Randon Shard Allocation vs. Specific Shard Allocation</h2>
+<h3 id="random-partition-keys">Random Partition Keys</h3>
+<ul>
+<li>If your use cases do not require data stored in a shard to have high affinity, you can achieve high overall throughput by using a random partition key to distribute data. </li>
+<li>Random partition keys help <em>distribute the incoming data records evenly across all the shards in the stream</em> and reduce the likelihood of one or more shards getting hit with a disproportionate number of records. </li>
+<li>You can use a universally unique identifier (UUID) as a partition key to achieve this uniform distribution of records across shards. </li>
+</ul>
+<blockquote>
+<p>This strategy can increase the latency of record processing if the consumer application has to aggregate data from multiple shards.
+For example, in a leaderboard update scenario (for a gaming application), it is better of each player's data is in a shard (i.e. keep the shard id as player id.)</p>
+</blockquote>
+<h3 id="specific-partition-keys">Specific Partition Keys</h3>
+<ul>
+<li>Certain use cases require you to partition data based on specific criteria for efficient processing by the consuming applications. </li>
+<li>As an example, if you use player ID pk1234 as the hash key, all scores related to that player route to shard1. </li>
+<li>The consuming application can use the fact that data stored in shard1 has an affinity with the player ID and can efficiently calculate the leaderboard. </li>
+<li>An increase in traffic related to players mapped to shard1 can lead to a hot shard. </li>
+<li>Kinesis Data Streams allows you to handle such scenarios by splitting or merging shards without disrupting your streaming pipeline.</li>
+<li>User activity dashboard based on clickstream for a user can be handled in the same manner (with Session ID as a partition key).<ul>
+<li>Partitioning by the session ID will allow a single processor to process all the actions for a user session in order.</li>
+<li>An AWS Lambda function can call the UpdateShardCount API action to change the number of shards in the stream. </li>
+<li>The KCL will automatically manage the number of processors to match the number of shards.</li>
+<li>Amazon EC2 Auto Scaling will assure the correct number of instances are running to meet the processing load.</li>
+</ul>
+</li>
+</ul>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="producers">Producers</h3>
+<ul>
+<li>Producer Application is Writing at a Slower Rate Than Expected<ul>
+<li>Service Limits Exceeded</li>
+<li>Producer optimization</li>
+</ul>
+</li>
+<li>Producer Optimization<ul>
+<li>Large Producer: Either batch &amp; aggregate (KPL or PutRecords or aggregate before PutRecord)</li>
+<li>Multiple threads</li>
+<li>Small Producer: Use <code>PutRecords</code></li>
+<li>Mobile apps must handle intermittent connections inherently and need some sort of batch put, such as PutRecords.</li>
+</ul>
+</li>
+<li>Unauthorized KMS master key permission error</li>
+</ul>
+<h3 id="consumers">Consumers</h3>
+<ul>
+<li>The Kinesis Client Library (KCL) relies on your processRecords code to handle any exceptions that arise from processing the data records. Any exception thrown from processRecords is absorbed by the KCL.</li>
+<li>For any running Kinesis Client Library (KCL) application, a shard only has one owner. However, multiple record processors may temporarily process the same shard. In the case of a worker instance that loses network connectivity, the KCL assumes that the unreachable worker is no longer processing records, after the failover time expires, and directs other worker instances to take over. For a brief period, new record processors and record processors from the unreachable worker may process data from the same shard.</li>
+<li>Consumer Application is Reading at a Slower Rate Than Expected.</li>
+<li>GetRecords Returns Empty Records Array Even When There is Data in the Stream<ul>
+<li>Consuming is a pull model. </li>
+<li>An empty Records element is returned under two conditions:<ul>
+<li>There is no more data currently in the shard.</li>
+<li>There is no data near the part of the shard pointed to by the ShardIterator.</li>
+<li>The latter condition is subtle, but is a necessary design tradeoff to avoid unbounded seek time (latency) when retrieving records. Thus, the stream-consuming application should loop and call GetRecords, handling empty records as a matter of course.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Unauthorized KMS master key permission error</li>
+</ul>
+<h2 id="anti-patterns">Anti-patterns</h2>
+<ul>
+<li>Small scale consistent throughput – Even though Kinesis Data Streams works for streaming data at 200 KB/sec or less, <strong><em>KDS is designed and optimized for larger data throughputs</em></strong>.</li>
+<li>Long-term data storage and analytics: <em>Kinesis Data Streams is not suited for long-term data storage</em>. By default, data is retained for 24 hours, and you can extend the retention period by up to 7 days. You can move any data that needs to be stored for longer than 7 days into another durable storage service such as Amazon S3, Amazon S3 Glacier, Amazon Redshift, or DynamoDB.</li>
+</ul>
+<h2 id="kinesis-vs-msk">Kinesis vs. MSK</h2>
+<ul>
+<li>MSK provides possibilities of sending large messages (ex: 10MB) into Kafka after custom configuration</li>
+<li>On the other hand, on a Kinesis shard, only 1 MB/second can be ingested</li>
+</ul>
+<h2 id="msk">MSK</h2>
+<ul>
+<li>Authentication &amp; Authorization (important):<ul>
+<li>Define who can read/write to which topics</li>
+<li>Mutual TLS (AuthN) + Kafka ACLs (AuthZ)</li>
+<li>SASL/SCRAM (AuthN) + Kafka ACLs (AuthZ)</li>
+<li>IAM Access Control (AuthN + AuthZ) - recommended.</li>
+</ul>
+</li>
+<li>Use MSK Connect (Managed) to pull data from MSK Cluster and push into S3</li>
+<li>You can deploy any Kafka Connect connectors to MSK Connect as a plugin<ul>
+<li>Amazon S3, Amazon Redshift, Amazon OpenSearch, Debezium, etc… </li>
+</ul>
+</li>
+</ul>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://www.kadeck.com/blog/an-in-depth-look-at-amazon-kinesis-and-a-comparison-to-apache-kafka">Kinesis vs Kafka</a></li>
+<li><a href="https://aws.amazon.com/blogs/big-data/snakes-in-the-stream-feeding-and-eating-amazon-kinesis-streams-with-python/">Feeding and eating Kinesis Streams with Python</a></li>
+</ul>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.e5c33ebb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.51d95adb.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1750 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../processing/aws_iot.html">
+      
+      
+        <link rel="next" href="redshift.html">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.6">
+    
+    
+      
+        <title>Storage - AWS Certified Data Analytics Specialty - Concept Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.558e4712.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.2505c338.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#storage" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="AWS Certified Data Analytics Specialty - Concept Notes" class="md-header__button md-logo" aria-label="AWS Certified Data Analytics Specialty - Concept Notes" data-md-component="logo">
+      
+  <img src="../images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AWS Certified Data Analytics Specialty - Concept Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Storage
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/jeyabalajis/aws-certified-data-analytics-specialty-notes.git" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="AWS Certified Data Analytics Specialty - Concept Notes" class="md-nav__button md-logo" aria-label="AWS Certified Data Analytics Specialty - Concept Notes" data-md-component="logo">
+      
+  <img src="../images/logo.png" alt="logo">
+
+    </a>
+    AWS Certified Data Analytics Specialty - Concept Notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/jeyabalajis/aws-certified-data-analytics-specialty-notes.git" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2" tabindex="0" aria-expanded="false">
+          Collection
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Collection" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Collection
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../collection/collection.html" class="md-nav__link">
+        Collection
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../collection/kinesis_data_firehose.html" class="md-nav__link">
+        Kinesis Data Firehose
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../collection/kinesis_data_streams.html" class="md-nav__link">
+        Kinesis Data Streams
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../collection/glue_etl.html" class="md-nav__link">
+        Glue ETL
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../collection/dynamodb_streams.html" class="md-nav__link">
+        Dynamo DB Streams
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../collection/database_migration_service.html" class="md-nav__link">
+        Database Migration Service
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3" tabindex="0" aria-expanded="false">
+          Processing
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Processing" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Processing
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../processing/processing.html" class="md-nav__link">
+        Processing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../processing/athena.html" class="md-nav__link">
+        Athena
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../processing/amazon_emr.html" class="md-nav__link">
+        Amazon EMR
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../processing/glue.html" class="md-nav__link">
+        Glue
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../processing/aws_iot.html" class="md-nav__link">
+        AWS IOT
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4" tabindex="0" aria-expanded="true">
+          Storage
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Storage" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Storage
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Storage
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="storage.html" class="md-nav__link md-nav__link--active">
+        Storage
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#oltp-stores" class="md-nav__link">
+    OLTP stores
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#analytic" class="md-nav__link">
+    Analytic
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dynamodb" class="md-nav__link">
+    DynamoDB
+  </a>
+  
+    <nav class="md-nav" aria-label="DynamoDB">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#local-secondary-index-lsi" class="md-nav__link">
+    Local Secondary Index (LSI)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#global-secondary-index-gsi" class="md-nav__link">
+    Global Secondary Index (GSI)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#provisioned-capacity-mode" class="md-nav__link">
+    Provisioned Capacity Mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#global-tables" class="md-nav__link">
+    Global Tables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backup" class="md-nav__link">
+    Backup
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#redis" class="md-nav__link">
+    Redis
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#s3" class="md-nav__link">
+    S3
+  </a>
+  
+    <nav class="md-nav" aria-label="S3">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#s3-object-prefixes" class="md-nav__link">
+    S3 Object Prefixes
+  </a>
+  
+    <nav class="md-nav" aria-label="S3 Object Prefixes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#s3-select" class="md-nav__link">
+    S3 Select
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#glacier-select" class="md-nav__link">
+    Glacier Select
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#glacier" class="md-nav__link">
+    Glacier
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#encryption" class="md-nav__link">
+    Encryption
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sse-kms" class="md-nav__link">
+    SSE-KMS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#large-files" class="md-nav__link">
+    Large Files
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#redshift" class="md-nav__link">
+    Redshift
+  </a>
+  
+    <nav class="md-nav" aria-label="Redshift">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#storage-options" class="md-nav__link">
+    Storage Options
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nodes-and-slices" class="md-nav__link">
+    Nodes and Slices
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-distribution-styles" class="md-nav__link">
+    Data Distribution styles
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#workload-management-wlm" class="md-nav__link">
+    Workload Management (WLM)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#short-query-acceleration-sqa" class="md-nav__link">
+    Short Query Acceleration (SQA)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resizing" class="md-nav__link">
+    Resizing
+  </a>
+  
+    <nav class="md-nav" aria-label="Resizing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#elastic-resize" class="md-nav__link">
+    Elastic resize:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#classic-resize" class="md-nav__link">
+    Classic resize:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#snapshot-restore-and-resize" class="md-nav__link">
+    Snapshot, restore, and resize:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fast-classic-resize" class="md-nav__link">
+    Fast Classic Resize:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#copy-of-data" class="md-nav__link">
+    Copy of Data
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compression-encodings" class="md-nav__link">
+    Compression encodings
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-a-staging-table-to-perform-a-merge-upsert" class="md-nav__link">
+    Use a staging table to perform a merge (upsert)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#redshift-spectrum-overview" class="md-nav__link">
+    Redshift Spectrum Overview
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rdms" class="md-nav__link">
+    RDMS
+  </a>
+  
+    <nav class="md-nav" aria-label="RDMS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#row-level-security" class="md-nav__link">
+    Row-Level Security
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dynamodb_1" class="md-nav__link">
+    DynamoDB
+  </a>
+  
+    <nav class="md-nav" aria-label="DynamoDB">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#wcu-rcu" class="md-nav__link">
+    WCU &amp; RCU
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#glue-data-catalog" class="md-nav__link">
+    Glue Data Catalog
+  </a>
+  
+    <nav class="md-nav" aria-label="Glue Data Catalog">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#catalog-steps" class="md-nav__link">
+    Catalog steps
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#amazon-open-search" class="md-nav__link">
+    Amazon Open Search
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dms" class="md-nav__link">
+    DMS
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="redshift.html" class="md-nav__link">
+        Redshift
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="s3.html" class="md-nav__link">
+        S3
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5" tabindex="0" aria-expanded="false">
+          Visualization
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Visualization" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Visualization
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../visualization/visualization.html" class="md-nav__link">
+        Visualization
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../visualization/quick_sight.html" class="md-nav__link">
+        Quicksight
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../visualization/open_search.html" class="md-nav__link">
+        Open Search
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6" tabindex="0" aria-expanded="false">
+          Exam Preparation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Exam Preparation" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Exam Preparation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../exam_prep/exam_preparation.html" class="md-nav__link">
+        Exam Preparation
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#oltp-stores" class="md-nav__link">
+    OLTP stores
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#analytic" class="md-nav__link">
+    Analytic
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dynamodb" class="md-nav__link">
+    DynamoDB
+  </a>
+  
+    <nav class="md-nav" aria-label="DynamoDB">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#local-secondary-index-lsi" class="md-nav__link">
+    Local Secondary Index (LSI)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#global-secondary-index-gsi" class="md-nav__link">
+    Global Secondary Index (GSI)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#provisioned-capacity-mode" class="md-nav__link">
+    Provisioned Capacity Mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#global-tables" class="md-nav__link">
+    Global Tables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backup" class="md-nav__link">
+    Backup
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#redis" class="md-nav__link">
+    Redis
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#s3" class="md-nav__link">
+    S3
+  </a>
+  
+    <nav class="md-nav" aria-label="S3">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#s3-object-prefixes" class="md-nav__link">
+    S3 Object Prefixes
+  </a>
+  
+    <nav class="md-nav" aria-label="S3 Object Prefixes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#s3-select" class="md-nav__link">
+    S3 Select
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#glacier-select" class="md-nav__link">
+    Glacier Select
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#glacier" class="md-nav__link">
+    Glacier
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#encryption" class="md-nav__link">
+    Encryption
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sse-kms" class="md-nav__link">
+    SSE-KMS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#large-files" class="md-nav__link">
+    Large Files
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#redshift" class="md-nav__link">
+    Redshift
+  </a>
+  
+    <nav class="md-nav" aria-label="Redshift">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#storage-options" class="md-nav__link">
+    Storage Options
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nodes-and-slices" class="md-nav__link">
+    Nodes and Slices
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-distribution-styles" class="md-nav__link">
+    Data Distribution styles
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#workload-management-wlm" class="md-nav__link">
+    Workload Management (WLM)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#short-query-acceleration-sqa" class="md-nav__link">
+    Short Query Acceleration (SQA)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resizing" class="md-nav__link">
+    Resizing
+  </a>
+  
+    <nav class="md-nav" aria-label="Resizing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#elastic-resize" class="md-nav__link">
+    Elastic resize:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#classic-resize" class="md-nav__link">
+    Classic resize:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#snapshot-restore-and-resize" class="md-nav__link">
+    Snapshot, restore, and resize:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fast-classic-resize" class="md-nav__link">
+    Fast Classic Resize:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#copy-of-data" class="md-nav__link">
+    Copy of Data
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compression-encodings" class="md-nav__link">
+    Compression encodings
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-a-staging-table-to-perform-a-merge-upsert" class="md-nav__link">
+    Use a staging table to perform a merge (upsert)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#redshift-spectrum-overview" class="md-nav__link">
+    Redshift Spectrum Overview
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rdms" class="md-nav__link">
+    RDMS
+  </a>
+  
+    <nav class="md-nav" aria-label="RDMS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#row-level-security" class="md-nav__link">
+    Row-Level Security
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dynamodb_1" class="md-nav__link">
+    DynamoDB
+  </a>
+  
+    <nav class="md-nav" aria-label="DynamoDB">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#wcu-rcu" class="md-nav__link">
+    WCU &amp; RCU
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#glue-data-catalog" class="md-nav__link">
+    Glue Data Catalog
+  </a>
+  
+    <nav class="md-nav" aria-label="Glue Data Catalog">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#catalog-steps" class="md-nav__link">
+    Catalog steps
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#amazon-open-search" class="md-nav__link">
+    Amazon Open Search
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dms" class="md-nav__link">
+    DMS
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+
+<h1 id="storage">Storage</h1>
+<ul>
+<li>Operational Data Store (OLTP Data Store): <ul>
+<li>Row store, </li>
+<li>low latency, </li>
+<li>High Throughput, </li>
+<li>Concurrent, </li>
+<li>High Velocity, </li>
+<li>Caching</li>
+</ul>
+</li>
+<li>Analytical Data Store: Divided into OLAP and Decision Support System (DSS). <ul>
+<li>Columnar store</li>
+<li>Large data sets, Partioned</li>
+<li>Large Compute Size</li>
+<li>Regularly performs complex joins and aggregations</li>
+<li>Bulk Loading or Trickle Inserts</li>
+<li>Low Change Velocity</li>
+</ul>
+</li>
+<li>OLAP: OLAP systems provide a more responsive framework for real-time feedback and ad-hoc queries. </li>
+<li>DSS Systems: DSS systems, such as data lakes and data warehouses, are useful for long-running query aggregations and projections, where latency is less important.</li>
+</ul>
+<h2 id="oltp-stores">OLTP stores</h2>
+<ul>
+<li>RDS: Scales vertically. Reliable and durable: Multi-AZ and automated backups, snapshots, and failover.</li>
+<li>DynamoDB: Scales horizontally. Reliable and durable. Offers <em>global tables</em> for multi-region replication.</li>
+<li>ElastiCache: Extreme performance. ElastiCache for Redis offers multi-az storage with automatic failover.</li>
+<li>Neptune: Fast and scalable (billions of relationships &amp; queries with milliseconds latency). Six replicas of data across three AZ. </li>
+</ul>
+<h2 id="analytic">Analytic</h2>
+<ul>
+<li>S3: Object store, fast &amp; reliable platform to store and query structured and semi-structured data. Athena &amp; Redshift can read from S3. Reliable and Durable (data replicated across 3 AZ, except for single AZ storage class), cross-region replication.</li>
+<li>Redshift: Columnar storage to improve I/O efficiency and parallelize queries. Data loads linearly. Fastest query results with higher storage cost. Reliable and durable: Continuously backs up your data to S3 (11 9s of durability)   </li>
+</ul>
+<h2 id="dynamodb">DynamoDB</h2>
+<ul>
+<li>Use DAX (DynamoDB compatible) for micro-second responses.</li>
+<li>Partition Key (or) Primary Key: Choose a column with high cardinality. User ID is good. Error code is bad.</li>
+<li>Secondary indexes: <em>access pattern</em>. These indexes can use alternate sort and/or primary keys to match secondary access patterns. <ul>
+<li>The careful design of secondary indexes allows fast and efficient access to data.</li>
+<li>Can choose local or global secondary indexes.</li>
+</ul>
+</li>
+<li>LSI: Same partition key, but different sort key. Both eventual and strong. Cannot be deleted, choose when you create table.</li>
+<li>GSI: Both partition and sort keys can be different. <em>Global</em> since the data can span all partitions. Only eventual consistency.</li>
+</ul>
+<blockquote>
+<p>In a DynamoDB table, there is no upper limit on the number of distinct sort key values per partition key value. If you needed to store many billions of Dog items in the Pets table, DynamoDB would allocate enough storage to handle this requirement automatically.</p>
+</blockquote>
+<h3 id="local-secondary-index-lsi">Local Secondary Index (LSI)</h3>
+<ul>
+<li>A local secondary index maintains an alternate sort key for a given partition key value.</li>
+<li>A local secondary index also contains a copy of some or all of the attributes from its base table. </li>
+<li>You specify which attributes are projected into the local secondary index when you create the table.</li>
+<li>LSI occupies additional space (for both indexes and projections)</li>
+<li>Queries, Scans and Updates consume read and write capacity units of the base table</li>
+</ul>
+<blockquote>
+<p>LSI is considered “local” because every partition of a local secondary index is bounded by the same partition key value of the base table. It enables querying with different sort order.   </p>
+<p>If access patterns are known clearly upfront, and if strong read consistency is a requirement, then go for LSI.</p>
+</blockquote>
+<h3 id="global-secondary-index-gsi">Global Secondary Index (GSI)</h3>
+<ul>
+<li>To speed up queries on non-key attributes, you can create a global secondary index. </li>
+<li>A global secondary index contains a selection of attributes from the base table, but they are organized by a primary key that is different from that of the table. </li>
+<li>The index key does not need to have any of the key attributes from the table. It doesn't even need to have the same key schema as a table.</li>
+<li>Each index has its own provisioned throughput independent of base table</li>
+</ul>
+<blockquote>
+<p>GSI is deemed <em>global</em> because queries on the index can access the <em>data across different partitions of the base table</em>.</p>
+<p>Every global secondary index must have a partition key, and can have an optional sort key. The index key schema can be different from the base table schema.</p>
+<p>GSI is like having another table altogether.</p>
+</blockquote>
+<h3 id="provisioned-capacity-mode">Provisioned Capacity Mode</h3>
+<ul>
+<li>With provisioned capability mode, you specify the number of reads (RCUs) and writes (WCUs) per second that you expect your application to require. </li>
+<li>1 RCU represents one strongly consistent read or 2 eventually consistent reads per second for an item up to 4 KB in size. </li>
+<li>1 WCU represents one write per second for an item up to 1 KB in size. </li>
+<li>You can provision any amount of throughput to a table and use auto scaling to automatically adjust your table’s capacity based on the specified utilization rate to ensure application performance while reducing costs.</li>
+</ul>
+<blockquote>
+<p>Provisioned capacity is probably best for you <em>if you have relatively predictable application traffic</em>, run applications whose <em>traffic is consistent</em>, and <em>ramps up or down gradually</em>.</p>
+<p>On-demand capacity mode is probably best when you have new tables with unknown workloads, unpredictable application traffic and also if you only want to pay exactly for what you use. The on-demand pricing model is ideal <em>for bursty, new, or unpredictable workloads whose traffic can spike in seconds or minutes, and when under-provisioned capacity would impact the user experience</em>.</p>
+</blockquote>
+<h3 id="global-tables">Global Tables</h3>
+<ul>
+<li>Uses DynamoDB streams</li>
+</ul>
+<blockquote>
+<p>To help ensure eventual consistency, DynamoDB global tables use a last-writer-wins reconciliation between concurrent updates, in which DynamoDB makes a best effort to determine the last writer.</p>
+</blockquote>
+<h3 id="backup">Backup</h3>
+<ul>
+<li>AWS Backup</li>
+<li>DynamoDB on-demand backup. You can use the DynamoDB on-demand backup capability to create full backups of your tables for long-term retention, and archiving for regulatory compliance needs.</li>
+</ul>
+<h2 id="redis">Redis</h2>
+<ul>
+<li>You can use Redis Hashes to maintain a list of likes &amp; dislikes for a product code (product recommendation use case)</li>
+</ul>
+<h2 id="s3">S3</h2>
+<h3 id="s3-object-prefixes">S3 Object Prefixes</h3>
+<ul>
+<li>You can use prefixes to organize the data that you store in Amazon S3 buckets. </li>
+<li>A prefix is a string of characters at the beginning of the object key name. </li>
+<li>A prefix can be any length, subject to the maximum length of the object key name</li>
+<li>Searching by prefix limits the results to only those keys that begin with the specified prefix.</li>
+</ul>
+<blockquote>
+<p>If your application issues requests directly to Amazon S3 using the REST API, we recommend using a pool of HTTP connections and re-using each connection for a series of requests. Avoiding per-request connection setup removes the need to perform TCP slow-start and Secure Sockets Layer (SSL) handshakes on each request. </p>
+</blockquote>
+<h4 id="s3-select">S3 Select</h4>
+<ul>
+<li>S3 Select enables applications to retrieve only a subset of data from an object by using simple SQL expressions. </li>
+<li>By using S3 Select to retrieve only the data needed by your application, you can achieve drastic performance increases (sometimes upto 400% improvement)</li>
+<li>Amazon Athena, Amazon Redshift, and Amazon EMR as well as partners like Cloudera, DataBricks, and Hortonworks will all support S3 Select.</li>
+</ul>
+<h4 id="glacier-select">Glacier Select</h4>
+<ul>
+<li>Some companies in highly regulated industries like Financial Services, Healthcare, and others, write data directly to Amazon Glacier to satisfy compliance needs like SEC Rule 17a-4 or HIPAA. </li>
+<li>Many S3 users have lifecycle policies designed to save on storage costs by moving their data into Glacier when they no longer need to access it on a regular basis. </li>
+<li>Cold data stored in Glacier can now be easily queried within minutes (vis-a-vis weeks with Tape solutions).</li>
+<li>Glacier Select allows you to to perform filtering directly against a Glacier object using standard SQL statements.</li>
+</ul>
+<h3 id="glacier">Glacier</h3>
+<ul>
+<li>To prevent deletion in Glacier, you must use a Glacier Vault Lock Policy.</li>
+<li>Glacier Select allows you to perform filtering directly against Glacier objects using standard SQL statements. It is the simplest, quickest, and most cost-effective option for querying cold data stored in Glacier.</li>
+</ul>
+<h3 id="encryption">Encryption</h3>
+<h3 id="sse-kms">SSE-KMS</h3>
+<ul>
+<li>When you create an object, you can specify the use of server-side encryption with AWS Key Management Service (AWS KMS) keys to encrypt your data. This encryption is known as SSE-KMS. </li>
+<li>You can apply encryption when you are either uploading a new object or copying an existing object.</li>
+<li>SSE-KMS will allow you to use different KMS keys to encrypt the objects, and then you can grant users access to specific sets of KMS keys to give them access to the objects in S3 they should be able to decrypt.</li>
+</ul>
+<blockquote>
+<p>If you want to allow multiple users to decrypt and use different sets of objects (per each user), go with SSE-KMS and specific
+SSE-KMS key per each of these sets of objects. A bucket policy becomes complex in this case.</p>
+</blockquote>
+<h3 id="large-files">Large Files</h3>
+<ul>
+<li>To validate checksum of upload of large files, use the S3 ETag (sent in the response) against the local MD5 hash.</li>
+</ul>
+<h2 id="redshift">Redshift</h2>
+<h3 id="storage-options">Storage Options</h3>
+<ul>
+<li>While Amazon RDS, DynamoDB, and Neptune are all built in SSDs, Amazon Redshift offers you a choice of <strong>SSD</strong> or <strong>HDD</strong> storage. </li>
+<li>Amazon Redshift offers three different node types to best accommodate your workloads. You can select <em>RA3</em>, <em>DC2</em>, or <em>DS2</em>, depending on your required performance and data size.<ul>
+<li>DC2: Compute Intensive with local SSD</li>
+<li>DS2: Legacy, uses HDD for lower cost, not recommended</li>
+<li>RA3: with managed storage, allows you to optimize your datawarehouse by scaling and paying for compute and storage independently. </li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>By having the data located in both Amazon S3 and Redshift you are increasing the costs without a good reason. You can consider Redshift Spectrum instead.<br />
+However, if you have a need that data will be modified using SQL for custom processing, store the data in Amazon Redshift
+database (Data Warehouse), rather than S3 (Data Lake).  </p>
+</blockquote>
+<h3 id="nodes-and-slices">Nodes and Slices</h3>
+<ul>
+<li>An Amazon Redshift cluster is a set of nodes. </li>
+<li>Each node in the cluster has its own operating system, dedicated memory, and dedicated disk storage. </li>
+<li>One node is the leader node, which manages the distribution of data and query processing tasks to the compute nodes. </li>
+<li>The compute nodes provide resources to do those tasks.</li>
+<li>The disk storage for a compute node is divided into a number of slices. </li>
+<li>The number of slices per node depends on the node size of the cluster. </li>
+<li>For example, each DS2.XL compute node has two slices, and each DS2.8XL compute node has 16 slices. </li>
+<li>The nodes all participate in running parallel queries, working on data that is distributed as evenly as possible across the slices.</li>
+<li>When the table is loaded with data, the rows are distributed to the node slices according to the distribution key that is defined for a table.</li>
+</ul>
+<blockquote>
+<p>To the extent that you anticipate where best to locate data initially, you can minimize the impact of data redistribution.
+Distribution styles: EVEN, KEY, ALL, AUTO. ALL distribution is appropriate only for relatively slow moving tables, since data is copied across nodes. </p>
+<p>If you intend to load data from a large, compressed file, we recommend that you split your data into smaller files that are about equal size, from 1 MB to 1 GB after compression. For optimum parallelism, the ideal file size is 1–125 MB after compression. Make the number of files a multiple of the number of slices in your cluster.</p>
+<p>While you are not charged for delete markers, removing expired markers can improve the performance of LIST requests.</p>
+</blockquote>
+<h3 id="data-distribution-styles">Data Distribution styles</h3>
+<ul>
+<li>KEY: The rows are distributed according to the values in one column.</li>
+<li>EVEN: Data is distributed across nodes in a round-robin fashion. If the table does not participate in a join, use this.</li>
+<li>ALL: Data is copied across all nodes</li>
+<li>AUTO: Redshift decides.</li>
+</ul>
+<blockquote>
+<p>Sort Key: Interleaved: Increased Load and Vaccum times. Don't use interleaved in monotonously increasing attributes.</p>
+</blockquote>
+<h3 id="workload-management-wlm">Workload Management (WLM)</h3>
+<ul>
+<li>You can use workload management (WLM) to define multiple query queues and to route queries to the appropriate queues at runtime.</li>
+<li>For example, suppose that one group of users submits occasional complex, long-running queries that select and sort rows from several large tables. Another group frequently submits short queries that select only a few rows from one or two tables and run in a few seconds. In this situation, the short-running queries might have to wait in a queue for a long-running query to complete. </li>
+<li>WLM helps manage this situation by pushing these queries into separate queues.</li>
+</ul>
+<h3 id="short-query-acceleration-sqa">Short Query Acceleration (SQA)</h3>
+<ul>
+<li>Short query acceleration (SQA) prioritizes selected short-running queries ahead of longer-running queries. </li>
+<li>SQA runs short-running queries in a dedicated space, so that SQA queries aren't forced to wait in queues behind longer queries.</li>
+<li>If you enable SQA, you can reduce or eliminate workload management (WLM) queues that are dedicated to running short queries.</li>
+<li>In addition, long-running queries don't need to contend with short queries for slots in a queue, <strong>so you can configure your WLM queues to use fewer query slots</strong>.</li>
+</ul>
+<h3 id="resizing">Resizing</h3>
+<ul>
+<li>AWS generally recommends using elastic resize, assuming you can tolerate 10 minutes or so of read-only access. Elastic Resize works for both node count and type changes.</li>
+<li>Classic resize takes more time to complete, but it can be useful in cases where the change in node count or the node type to migrate to doesn't fall within the bounds for elastic resize. This can apply, for instance, when the change in node count is really large.</li>
+</ul>
+<blockquote>
+<p>As a general rule of thumb, choose elastic resize instead of classic resize (unless the change node count is really large).</p>
+<p>You can also use classic resize to change the cluster encryption. <em>For example, you can use it to modify your unencrypted cluster to use AWS KMS encryption</em>.</p>
+<p>To be sure that the cluster is available during a classic resize operation, copy the existing cluster.  Then, resize the new cluster. If data is written to the source cluster after a snapshot is taken, the data must be manually copied over.</p>
+</blockquote>
+<h4 id="elastic-resize">Elastic resize:</h4>
+<ul>
+<li>If elastic resize is available as an option, use elastic resize to change the node type, number of nodes, or both. Note that when you only change the number of nodes, the queries are temporarily paused and connections are kept open. An elastic resize takes between 10-15 minutes. During a resize operation, the cluster is read-only.</li>
+</ul>
+<h4 id="classic-resize">Classic resize:</h4>
+<ul>
+<li>Use classic resize to change the node type, number of nodes, or both. Choose this option when you're resizing to a configuration that isn't available through elastic resize. A resize operation takes two hours or more, or can take up to several days depending on your data size. During the resize operation, the source cluster is read-only.</li>
+</ul>
+<h4 id="snapshot-restore-and-resize">Snapshot, restore, and resize:</h4>
+<ul>
+<li>To be sure that the cluster is available during a classic resize operation, copy the existing cluster. Then, resize the new cluster. If data is written to the source cluster after a snapshot is taken, the data must be manually copied over. The manual data copy to the newly created target cluster must take place after the migration completes.</li>
+</ul>
+<h4 id="fast-classic-resize">Fast Classic Resize:</h4>
+<ul>
+<li>Fast classic resize is as quick as elastic resize and functions similar to classic resize. </li>
+<li>In this resize operation there are two main stages. In stage 1 (critical path), data is migrated from the source to a target cluster and the cluster is in read only mode. </li>
+<li>In stage 2 (off critical path) redistributing of the data, done in the previous data distribution style, is completed in the background. The duration of this stage depends on the volume to distribute and cluster workload.</li>
+</ul>
+<blockquote>
+<p>Classic resize: Use classic resize to change the node type, number of nodes, or both.</p>
+</blockquote>
+<h3 id="copy-of-data">Copy of Data</h3>
+<blockquote>
+<p>Amazon Redshift can automatically load in parallel from multiple compressed data files. However, if you use multiple concurrent COPY commands to load one table from multiple files, Amazon Redshift is forced to perform a serialized load. This type of load is much slower and requires a VACUUM process at the end if the table has a sort column defined. </p>
+<p>Splitting the files into 1-GB files and compressing them will improve performance of the COPY command.</p>
+</blockquote>
+<h3 id="compression-encodings">Compression encodings</h3>
+<ul>
+<li>Raw Encoding</li>
+<li>AZ64 Encoding</li>
+<li>Byte-Dictionary Encoding</li>
+<li>Delta Encoding</li>
+<li>LZO Encoding</li>
+<li>Mostly Encoding</li>
+<li>Runlength Encoding</li>
+<li>Text255 and Text32k Encodings</li>
+<li>Zstandard Encoding</li>
+</ul>
+<h3 id="use-a-staging-table-to-perform-a-merge-upsert">Use a staging table to perform a merge (upsert)</h3>
+<p>You can efficiently update and insert new data by loading your data into a staging table first.</p>
+<blockquote>
+<p>Amazon Redshift doesn't support a single merge statement (update or insert, also known as an upsert) to insert and update data from a single data source. 
+However, you can effectively perform a merge operation. To do so, load your data into a staging table and then join the staging table with your target table for an UPDATE statement and an INSERT statement.</p>
+</blockquote>
+<h3 id="redshift-spectrum-overview">Redshift Spectrum Overview</h3>
+<ul>
+<li>Amazon Redshift Spectrum resides on dedicated Amazon Redshift servers that are independent of your cluster. </li>
+<li>Amazon Redshift pushes many compute-intensive tasks, such as predicate filtering and aggregation, down to the Redshift Spectrum layer. </li>
+<li>Thus, Redshift Spectrum queries use much less of your cluster's processing capacity than other queries. </li>
+<li>Redshift Spectrum also scales intelligently. </li>
+<li>Based on the demands of your queries, Redshift Spectrum can potentially use thousands of instances to take advantage of massively parallel processing.</li>
+</ul>
+<blockquote>
+<p>Redshift Spectrum doesn't support update operations on external tables.
+Redshift Spectrum doesn't support Amazon EMR with Kerberos.</p>
+</blockquote>
+<h2 id="rdms">RDMS</h2>
+<ul>
+<li>If you are working on an on-premise PostgreSQL database, you can use <em>DMS (Database Management Service)</em> to replicate data to RDS, and offload analytical queries on it.</li>
+</ul>
+<blockquote>
+<p>If you are working with Amazon Aurora, read replicas help to offload analytical queries execution.</p>
+</blockquote>
+<h3 id="row-level-security">Row-Level Security</h3>
+<ul>
+<li>Row-Level Security for IAM users is now supported in both RDS and DynamoDB. </li>
+<li>Web Identity Federation is required to allow end users to use their Federated accounts with IAM. </li>
+</ul>
+<h2 id="dynamodb_1">DynamoDB</h2>
+<ul>
+<li>DynamoDB Streams do not have direct integration with Firehose. If you need to move data from DynamoDB to ElasticSearch, you need to involve Lambda functions in the middle. </li>
+<li>DynamoDB has direct integration with Redshift. Use the COPY command to load data in parallel directly into an Amazon Redshift cluster. </li>
+</ul>
+<h3 id="wcu-rcu">WCU &amp; RCU</h3>
+<ul>
+<li>1 WCU = 1 KB/second. <em>If you expect about 400 games to be written per second to your database, with each game emitting 80 KB of data, the WCU required is:</em> 80 KB * 400 KB/second = 32000 WCU.</li>
+<li>1 RCU = 2 eventually consistent reads per second of 4 KB. 1800 eventually consistent reads per second will require 1800 * 80/8 = 18000 RCU.</li>
+</ul>
+<h2 id="glue-data-catalog">Glue Data Catalog</h2>
+<ul>
+<li>Unified metadata repository across RDBMS, RDS, Redshift and S3</li>
+<li>Track data evolution using schema versioning</li>
+<li>Query using Athena or Redshift Spectrum</li>
+<li>Apache Hive metastore compatible; can be used as an external metastore for applications running on Amazon EMR.</li>
+</ul>
+<h3 id="catalog-steps">Catalog steps</h3>
+<ol>
+<li>A crawler runs any custom classifiers that you choose to infer the format and schema of your data.</li>
+<li>The crawler connects to the data store.</li>
+<li>The inferred schema is created for your data.</li>
+<li>The crawler writes metadata to the AWS Glue Data Catalog.</li>
+</ol>
+<blockquote>
+<p>AWS Glue crawlers can automatically infer schema from source data in Amazon S3 and store the associated metadata in the Data Catalog. </p>
+</blockquote>
+<h2 id="amazon-open-search">Amazon Open Search</h2>
+<ul>
+<li>Each Elasticsearch index is split into some number of shards. </li>
+<li>You should decide the shard count before indexing your first document. </li>
+<li>The overarching goal of choosing a number of shards is to distribute an index evenly across all data nodes in the cluster</li>
+<li>However, these shards shouldn't be too large or too numerous.</li>
+</ul>
+<blockquote>
+<p>Improve the cluster performance by decreasing the number of shards of Amazon Elasticsearch index, if you are facing <code>JVMMemoryPressure</code> found in Amazon ES logs. </p>
+</blockquote>
+<h2 id="dms">DMS</h2>
+<ul>
+<li>Quickly and securely migrate databases to AWS, resilient, self healing</li>
+<li>You must create an EC2 instance to perform the replication tasks</li>
+</ul>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.e5c33ebb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.51d95adb.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      
+    
+  </body>
+</html>
